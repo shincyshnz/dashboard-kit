@@ -25,6 +25,7 @@ pnpm lint                # ESLint + structure rules + token audit + stories:chec
 pnpm test
 pnpm build
 pnpm registry:check
+pnpm registry:sync [name…]   # copy registry components into apps/starter
 pnpm docs:check
 ```
 
@@ -36,7 +37,8 @@ pnpm docs:check
 4. **Respect recorded decisions** in [docs/adr/](./docs/adr/README.md). MUST NOT introduce a library or pattern that contradicts an ADR (e.g. Redux, Next.js, a second validation library); propose a new ADR instead.
 5. **Dependencies:** add with `pnpm --filter <package> add`, never at the root; choose releases at least two weeks old; never upgrade majors without being asked.
 6. **Never weaken a check** (lint rules, tsconfig strictness, `scripts/*check*.mjs`) to make code pass. No `any`, `@ts-ignore` or `eslint-disable` added to silence errors.
-7. **Documentation ships with the change** — see [docs/DOCUMENTATION-STANDARD.md](./docs/DOCUMENTATION-STANDARD.md). Update the guide, README, `CHANGELOG.md` and, when a rule changes, the relevant `AGENTS.md`.
+7. **Registry components have one source:** edit them in `packages/ui/src/`, never in `apps/starter/src/components/ui/` or `apps/starter/src/lib/utils.ts`; copy them across with `pnpm registry:sync [name…]`. `pnpm registry:check` fails when the starter's copies drift. ([docs/REGISTRY.md](./docs/REGISTRY.md#keeping-the-starter-in-sync))
+8. **Documentation ships with the change** — see [docs/DOCUMENTATION-STANDARD.md](./docs/DOCUMENTATION-STANDARD.md). Update the guide, README, `CHANGELOG.md` and, when a rule changes, the relevant `AGENTS.md`.
 
 ## Definition of done for any change
 

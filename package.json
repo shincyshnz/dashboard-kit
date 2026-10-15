@@ -20,6 +20,7 @@
     "docs:check": "node scripts/check-docs.mjs && pnpm -s --filter @dashboard-kit/tokens tokens-docs --check && pnpm -s --filter @dashboard-kit/tokens tokens-schema --check",
     "registry:check": "pnpm --filter @dashboard-kit/ui registry:check",
     "registry:build": "pnpm --filter @dashboard-kit/ui registry:build",
+    "registry:sync": "pnpm --filter @dashboard-kit/ui registry:sync",
     "storybook": "pnpm --filter @dashboard-kit/storybook dev",
     "storybook:build": "pnpm --filter @dashboard-kit/storybook build",
     "stories:check": "pnpm --filter @dashboard-kit/storybook stories:check",

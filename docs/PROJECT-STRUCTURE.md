@@ -88,8 +88,10 @@ src/
 
 1. A file used by **one feature** lives inside that feature.
 2. A file used by **two or more features** moves to `components/`, `hooks/` or `lib/`.
-3. `components/ui/` holds only registry components. Change them freely, but
-   if the change is useful for all projects, upstream it to `packages/ui`.
+3. `components/ui/` holds only registry components. Inside this monorepo they
+   are copies made by `pnpm registry:sync`: change `packages/ui`, then sync
+   (`pnpm registry:check` fails on drift). In a project created from the
+   starter, change them freely, but upstream changes useful for all projects.
 4. Route paths are defined only in `config/routes.ts`; navigation only in `config/navigation.ts`.
 5. Environment variables are read only in `config/env.ts` (validated with zod).
 6. Theme values are defined only in design-tokens.json files. No colour, radius, font,

@@ -24,11 +24,18 @@ pnpm dev          # from the repo root: token watcher + this app
 
 ## Themes
 
-The header has a theme picker (shown when more than one theme exists) and a
-light/dark toggle. For a tenant app, pass the tenant's theme instead:
+The header has a theme picker (the registry Select, shown when more than one
+theme exists) and a light/dark toggle. For a tenant app, pass the tenant's theme instead:
 
 ```tsx
 <ThemeProvider forcedTheme={tenant.theme}>…</ThemeProvider>
 ```
+
+## Registry components
+
+`src/components/ui/` and `src/lib/utils.ts` are copies of the registry source
+in `packages/ui`. In this monorepo, change them there and run
+`pnpm registry:sync` (or `pnpm registry:sync <name>` to add one); see
+[docs/REGISTRY.md](../../docs/REGISTRY.md#keeping-the-starter-in-sync).
 
 Folder rules: [docs/PROJECT-STRUCTURE.md](../../docs/PROJECT-STRUCTURE.md).
