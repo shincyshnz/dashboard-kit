@@ -71,6 +71,182 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Text field with token-based focus and validation states.",
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/input.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Accessible label built on Radix UI Label.",
+      "dependencies": ["@radix-ui/react-label"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/label.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Multi-line text field with token-based focus and validation states.",
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/textarea.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Accessible single-value selection control built on Radix UI.",
+      "dependencies": ["@radix-ui/react-select", "lucide-react"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/select.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Accessible checked, unchecked and indeterminate control.",
+      "dependencies": ["@radix-ui/react-checkbox", "lucide-react"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/checkbox.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "Accessible binary setting control built on Radix UI.",
+      "dependencies": ["@radix-ui/react-switch"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/switch.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Accessible modal dialog with overlay, title and description primitives.",
+      "dependencies": ["@radix-ui/react-dialog", "lucide-react"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/dialog.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "Responsive side panel built on the dialog primitive.",
+      "dependencies": ["@radix-ui/react-dialog", "class-variance-authority", "lucide-react"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/sheet.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "Accessible menu with item, checkbox, radio and submenu primitives.",
+      "dependencies": ["@radix-ui/react-dropdown-menu", "lucide-react"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/dropdown-menu.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Accessible floating content panel built on Radix UI.",
+      "dependencies": ["@radix-ui/react-popover"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/popover.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Accessible contextual hint built on Radix UI.",
+      "dependencies": ["@radix-ui/react-tooltip"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/tooltip.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Keyboard-accessible tab list and panels built on Radix UI.",
+      "dependencies": ["@radix-ui/react-tabs"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/tabs.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Responsive semantic table with consistent dashboard styling.",
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/table.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Token-based loading placeholder for content layouts.",
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/skeleton.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "Accessible horizontal or vertical divider built on Radix UI.",
+      "dependencies": ["@radix-ui/react-separator"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/separator.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Image with an accessible fallback for users and team members.",
+      "dependencies": ["@radix-ui/react-avatar"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/avatar.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "sonner",
+      "type": "registry:ui",
+      "title": "Sonner",
+      "description": "Token-styled toast viewport powered by Sonner.",
+      "dependencies": ["sonner"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/sonner.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "Collapsible navigation sidebar with composable menu primitives.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/sidebar.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Accessible navigation trail for the current page.",
+      "dependencies": ["@radix-ui/react-slot", "lucide-react"],
+      "registryDependencies": ["@dashboard-kit/utils"],
+      "files": [{ "path": "src/components/ui/breadcrumb.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "Keyboard-navigable command menu and search dialog.",
+      "dependencies": ["cmdk", "lucide-react"],
+      "registryDependencies": ["@dashboard-kit/utils", "@dashboard-kit/dialog"],
+      "files": [{ "path": "src/components/ui/command.tsx", "type": "registry:ui" }]
     }
   ]
 }

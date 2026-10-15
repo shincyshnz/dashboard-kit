@@ -1,5 +1,11 @@
 # Changelog
 
+## @dashboard-kit/ui 0.3.0 — Phase 2, Step 4 (primitives)
+
+- Added 20 registered primitives: input, label, textarea, select, checkbox, switch, dialog, sheet, dropdown menu, popover, tooltip, tabs, table, skeleton, separator, avatar, Sonner, sidebar, breadcrumb and command
+- Added a Storybook story for each primitive, including disabled, invalid, empty, collapsed and directional examples where supported
+- Added Radix UI, cmdk, Sonner and Lucide dependencies to the registry source and declared each component's install requirements
+
 ## @dashboard-kit/config 0.2.0 — Phase 2, Step 3 (token audit lint rule)
 
 - New ESLint rule `dashboard-kit/no-raw-design-values` (`@dashboard-kit/config/eslint/token-audit`): rejects Tailwind palette classes (incl. `black`/`white`) and arbitrary colour, radius, shadow and font values, through any variant

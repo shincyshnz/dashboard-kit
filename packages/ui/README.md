@@ -4,7 +4,7 @@ This package is **not installed** by projects. It is the source of the custom
 shadcn registry. Projects *copy* components from it and then own the copy:
 
 ```bash
-npx shadcn add @dashboard-kit/button @dashboard-kit/card
+npx shadcn add @dashboard-kit/button @dashboard-kit/select @dashboard-kit/dialog
 ```
 
 | Path | Purpose |
@@ -15,6 +15,12 @@ npx shadcn add @dashboard-kit/button @dashboard-kit/card
 | `src/lib/utils.ts` | `cn()` helper |
 | `public/r/` | Build output (`pnpm registry:build`) — deployed as static JSON |
 | `scripts/check-registry.mjs` | `pnpm registry:check` — keeps registry.json and src/ in sync |
+
+The primitive catalogue includes input, label, textarea, select, checkbox,
+switch, dialog, sheet, dropdown menu, popover, tooltip, tabs, table, skeleton,
+separator, avatar, Sonner, sidebar, breadcrumb and command. Components built
+on Radix UI or other libraries declare those npm dependencies in the registry;
+shared helpers such as `cn()` are pulled in as registry dependencies.
 
 Rules for every component here:
 
