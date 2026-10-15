@@ -15,6 +15,7 @@ npx shadcn add @dashboard-kit/button @dashboard-kit/select @dashboard-kit/dialog
 | `src/lib/utils.ts` | `cn()` helper |
 | `public/r/` | Build output (`pnpm registry:build`) — deployed as static JSON |
 | `scripts/check-registry.mjs` | `pnpm registry:check` — keeps registry.json and src/ in sync |
+| `scripts/sync-registry.mjs` | `pnpm registry:sync` — copies items into `apps/starter`; `--check` (run by `registry:check`) fails on drift |
 
 The primitive catalogue includes input, label, textarea, select, checkbox,
 switch, dialog, sheet, dropdown menu, popover, tooltip, tabs, table, skeleton,

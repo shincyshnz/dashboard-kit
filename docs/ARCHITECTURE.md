@@ -75,7 +75,7 @@ wrong theme. The available themes come from `tokens.json` → `list`.
 apps/starter ──► @dashboard-kit/tokens   (CSS + JSON only)
              ──► @dashboard-kit/config   (dev only)
              ──► @dashboard-kit/auth     (Phase 3) ──► @dashboard-kit/api
-packages/ui  ──► (copied into apps, never imported at runtime)
+packages/ui  ──► (copied into apps/starter by `pnpm registry:sync`, never imported at runtime)
 apps/storybook ──► packages/ui/src (via the "@" alias, to render the registry source)
                ──► @dashboard-kit/tokens
 ```

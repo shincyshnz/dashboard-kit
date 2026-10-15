@@ -1,5 +1,12 @@
 # Changelog
 
+## @dashboard-kit/ui 0.4.0, @dashboard-kit/starter 0.2.0 — Phase 2, Step 5 (starter sync)
+
+- New `pnpm registry:sync [name…]` (`packages/ui/scripts/sync-registry.mjs`): copies registry items and their registry dependencies into `apps/starter`, maps files by type through `components.json` aliases, and adds missing npm dependencies with the registry's version range
+- `pnpm registry:check` now also runs `registry:sync --check`, failing when a starter copy drifts from `packages/ui` or the starter lacks a needed npm package
+- Starter: header theme picker is now the registry Select (synced, with `@radix-ui/react-select`) instead of a native `<select>`
+- Docs: "Keeping the starter in sync" in `docs/REGISTRY.md`; new rule 7 in `AGENTS.md`; `PROJECT-STRUCTURE.md` rule 3 clarified; learning note `docs/learning/phase-2-step-5-starter-sync.md`
+
 ## @dashboard-kit/ui 0.3.0 — Phase 2, Step 4 (primitives)
 
 - Added 20 registered primitives: input, label, textarea, select, checkbox, switch, dialog, sheet, dropdown menu, popover, tooltip, tabs, table, skeleton, separator, avatar, Sonner, sidebar, breadcrumb and command

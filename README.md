@@ -68,7 +68,8 @@ dashboard-kit/
 | `pnpm tokens:import --file x.json` | Import Figma / Tokens Studio variables into design-tokens.json |
 | `pnpm tokens:diff` | Show token changes vs git and check the version bump |
 | `pnpm docs:check` | Verify READMEs, ADRs, phase reports, changelog and links |
-| `pnpm registry:check` | Verify registry.json matches the component source |
+| `pnpm registry:check` | Verify registry.json matches the component source and the starter's copies are in sync |
+| `pnpm registry:sync [name…]` | Copy registry components into `apps/starter` (re-copies existing ones; names add new ones) |
 | `pnpm registry:build` | Build the registry JSON into `packages/ui/public/r` |
 | `pnpm storybook` | Component catalogue on http://localhost:6006 |
 | `pnpm stories:check` | Enforce the story rules (also part of `pnpm lint`) |

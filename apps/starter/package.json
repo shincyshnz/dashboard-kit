@@ -1,6 +1,6 @@
 {
   "name": "@dashboard-kit/starter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Starter dashboard. New projects begin as a copy of this app.",
   "type": "module",
@@ -16,6 +16,7 @@
     "@dashboard-kit/tokens": "workspace:*",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@fontsource-variable/public-sans": "^5.3.0",
+    "@radix-ui/react-select": "^2.4.1",
     "@radix-ui/react-slot": "^1.4.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
