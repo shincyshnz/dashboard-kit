@@ -46,7 +46,7 @@ dashboard-kit/
 ├── apps/storybook/      ← component catalogue with theme + mode toolbar
 ├── packages/
 │   ├── tokens/          ← design-tokens.json → theme.css + tokens.json; docs / schema / import / diff CLI
-│   ├── ui/              ← shadcn registry source (copy-in components)
+│   ├── ui/              ← shadcn registry source (23 primitives and surfaces)
 │   ├── config/          ← shared tsconfig + ESLint (incl. structure rules)
 │   ├── auth/            ← planned, Phase 3
 │   └── api/             ← planned, Phase 3

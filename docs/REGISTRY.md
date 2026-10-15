@@ -55,6 +55,13 @@ This flow was verified end to end against a fresh Vite project in Phase 2, Step 
 | `registry:lib` | `lib/` | Helpers (`cn()`) |
 | `registry:hook` | `hooks/` | Shared hooks |
 
+The primitive set currently includes Input, Label, Textarea, Select, Checkbox,
+Switch, Dialog, Sheet, Dropdown Menu, Popover, Tooltip, Tabs, Table, Skeleton,
+Separator, Avatar, Sonner, Sidebar, Breadcrumb and Command. Components that
+depend on Radix UI, Sonner, cmdk or Lucide list those npm packages in
+`dependencies`; shared helpers and component prerequisites go in
+`registryDependencies`.
+
 ## Adding a component
 
 1. Create the file in `packages/ui/src/components/ui/<name>.tsx` (or `components/blocks/`).

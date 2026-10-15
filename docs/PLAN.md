@@ -2,9 +2,9 @@
 
 | | |
 |---|---|
-| **Status** | Phases 0–1 complete · Phase 2 🚧 in progress (Steps 1–3 and token migration done) |
+| **Status** | Phases 0–1 complete · Phase 2 🚧 in progress (Steps 1–4 and token migration done) |
 | **Owner** | Frontend team |
-| **Last updated** | 2026-10-12 |
+| **Last updated** | 2026-10-15 |
 
 ---
 
@@ -115,7 +115,7 @@ Built step by step, with a learning note per step in [docs/learning](./learning/
 | 2 | **Storybook:** `apps/storybook` (10.6.1), stories for button/badge/card + foundations pages, theme + mode toolbar from `tokens.json`, a11y addon, `registry:check` requires a story per component; rendering verified in a headless browser across themes | ✅ |
 | 2b | **Token format migration (inserted):** values moved from YAML in DESIGN.md to DTCG `design-tokens.json`; DESIGN.md becomes the guide with generated tables; JSON Schemas for editors; outputs verified byte-identical (ADR 0011) | ✅ |
 | 3 | **Token audit lint rule:** `dashboard-kit/no-raw-design-values` in `@dashboard-kit/config` rejects palette classes (incl. black/white) and arbitrary colour, radius, shadow and font values; `packages/ui` now runs `pnpm lint`; RuleTester suite | ✅ |
-| 4 | **Primitives:** input, label, textarea, select, checkbox, switch, dialog, sheet, dropdown-menu, popover, tooltip, tabs, table, skeleton, separator, avatar, sonner, sidebar, breadcrumb, command — each with a story | ⏳ |
+| 4 | **Primitives:** input, label, textarea, select, checkbox, switch, dialog, sheet, dropdown-menu, popover, tooltip, tabs, table, skeleton, separator, avatar, sonner, sidebar, breadcrumb, command — each registered with dependencies and a Storybook story | ✅ 20 accessible, token-styled registry components and stories |
 | 5 | **Starter sync:** `registry:sync` copies registry source into the starter; header theme picker becomes the registry Select | ⏳ |
 | 6 | **Deploy:** GitHub Actions workflow builds registry + Storybook and publishes to GitHub Pages | ⏳ |
 | 7 | **Close-out:** consumer test from the Pages URL, phase report, version bumps | ⏳ |

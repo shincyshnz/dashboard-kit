@@ -32,6 +32,11 @@ same two switches the apps use, so a story looks exactly as it will in a project
 | `scripts/check-stories.mjs` | `pnpm stories:check` — enforces the rules in AGENTS.md |
 | `AGENTS.md` / `CLAUDE.md` | Rules for anyone (or any AI agent) editing stories |
 
+The UI catalogue covers the full Phase 2 Step 4 primitive set: input, label,
+textarea, select, checkbox, switch, dialog, sheet, dropdown menu, popover,
+tooltip, tabs, table, skeleton, separator, avatar, Sonner, sidebar, breadcrumb
+and command, alongside Button, Badge and Card.
+
 ## Writing a story
 
 ```tsx
