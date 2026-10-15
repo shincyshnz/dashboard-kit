@@ -1,0 +1,22 @@
+/*
+ * App stylesheet. Theme values are NOT defined here — they come from
+ * DESIGN.md via @dashboard-kit/tokens. Edit DESIGN.md to re-theme.
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@dashboard-kit/tokens/theme.css";
+@import "./fonts.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-heading;
+  }
+}

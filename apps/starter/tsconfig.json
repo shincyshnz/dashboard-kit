@@ -1,0 +1,7 @@
+{
+  "extends": "@dashboard-kit/config/tsconfig/react-app.json",
+  "compilerOptions": {
+    "paths": { "@/*": ["./src/*"] }
+  },
+  "include": ["src"]
+}

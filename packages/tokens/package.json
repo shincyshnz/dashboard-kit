@@ -1,0 +1,38 @@
+{
+  "name": "@dashboard-kit/tokens",
+  "version": "0.2.0",
+  "description": "Compiles DESIGN.md into a Tailwind v4 / shadcn theme (theme.css) and tokens.json.",
+  "type": "module",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    "./theme.css": "./dist/theme.css",
+    "./base.css": "./dist/base.css",
+    "./themes/*": "./dist/themes/*",
+    "./tokens.json": "./dist/tokens.json"
+  },
+  "scripts": {
+    "build": "tsx src/cli.ts build",
+    "dev": "tsx src/cli.ts build --watch",
+    "tokens-import": "tsx src/cli.ts import",
+    "tokens-diff": "tsx src/cli.ts diff",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist .turbo"
+  },
+  "dependencies": {
+    "culori": "^4.0.2",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@dashboard-kit/config": "workspace:*",
+    "@types/culori": "^4.0.1",
+    "@types/node": "^24.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.3"
+  }
+}

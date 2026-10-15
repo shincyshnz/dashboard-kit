@@ -1,0 +1,26 @@
+/*
+ * Same setup as apps/starter/src/styles/index.css: Tailwind + the generated
+ * theme. Theme values come from DESIGN.md files only.
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@dashboard-kit/tokens/theme.css";
+@import "@fontsource-variable/public-sans";
+@import "@fontsource-variable/jetbrains-mono";
+
+/*
+ * Tailwind only generates classes it finds in scanned files. By default it
+ * scans this app's folder; the components live in packages/ui, so add it.
+ */
+@source "../../../packages/ui/src";
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+}

@@ -1,0 +1,3 @@
+/* Load every font family referenced in DESIGN.md → typography. */
+@import "@fontsource-variable/public-sans";
+@import "@fontsource-variable/jetbrains-mono";

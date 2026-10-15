@@ -1,0 +1,31 @@
+{
+  "name": "dashboard-kit",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.34.6",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "tokens:build": "pnpm --filter @dashboard-kit/tokens build",
+    "tokens:watch": "pnpm --filter @dashboard-kit/tokens dev",
+    "tokens:import": "pnpm --filter @dashboard-kit/tokens tokens-import",
+    "tokens:diff": "pnpm --filter @dashboard-kit/tokens tokens-diff",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "docs:check": "node scripts/check-docs.mjs",
+    "registry:check": "pnpm --filter @dashboard-kit/ui registry:check",
+    "registry:build": "pnpm --filter @dashboard-kit/ui registry:build",
+    "storybook": "pnpm --filter @dashboard-kit/storybook dev",
+    "storybook:build": "pnpm --filter @dashboard-kit/storybook build",
+    "stories:check": "pnpm --filter @dashboard-kit/storybook stories:check"
+  },
+  "devDependencies": {
+    "turbo": "^2.11.7",
+    "typescript": "~6.0.3"
+  }
+}

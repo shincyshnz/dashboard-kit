@@ -1,0 +1,21 @@
+{
+  "light": {
+    "color": {
+      "$type": "color",
+      "primary": { "$value": { "colorSpace": "srgb", "components": [0.55, 0.16, 0.12], "hex": "#8c291f" } },
+      "primary-foreground": { "$value": "#fff7f5" },
+      "ring": { "$value": "#b23a2e" },
+      "sidebar": { "primary": { "$value": "#8c291f" }, "primaryForeground": { "$value": "#fff7f5" } }
+    },
+    "radius": { "$type": "dimension", "$value": { "value": 4, "unit": "px" } }
+  },
+  "dark": {
+    "color": {
+      "$type": "color",
+      "primary": { "$value": "#f08a7e" },
+      "primary-foreground": { "$value": "#2a0d0a" },
+      "ring": { "$value": "#e26b5d" },
+      "sidebar": { "primary": { "$value": "#f08a7e" }, "primaryForeground": { "$value": "#2a0d0a" } }
+    }
+  }
+}

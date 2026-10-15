@@ -1,0 +1,54 @@
+# Changelog
+
+## Unreleased — decisions and documentation process
+
+- Decisions recorded: React + Vite over Next.js (ADR 0006), TanStack Query + Zustand (ADR 0007), zod for all validation (ADR 0008)
+- `docs/DOCUMENTATION-STANDARD.md`: required artifacts, per-phase workflow, writing rules
+- `pnpm docs:check`: enforces READMEs, ADR format and index, phase reports, changelog entries and working links
+- Phase reports for Phases 0 and 1; templates for ADRs and phase reports; PR template
+
+## AGENTS.md and story rules
+
+- Root `AGENTS.md` (repo-wide rules for AI agents) and `apps/storybook/AGENTS.md` (strict story rules S1–S11); `CLAUDE.md` files import them
+- `pnpm stories:check` enforces S1–S5 and S7: file per registry item, titles, file shape, `Default` story, every `cva` variant/size shown, no hard-coded colours or placeholder text
+- `stories:check` runs inside the Storybook app's `lint`
+- PR template and documentation standard updated; learning note `docs/learning/agents-md.md`
+
+## @dashboard-kit/storybook 0.1.0 — Phase 2, Step 2 (Storybook)
+
+- New `apps/storybook` on Storybook 10.6.1 (react-vite), with addon-docs and addon-a11y
+- Theme and Mode toolbar driven by `tokens.json`; `withTheme` decorator applies `data-theme` / `.dark`
+- Stories: Button, Badge, Card; Foundations pages for colours, typography, radius, shadows and density
+- `registry:check` now requires a story for every `registry:ui` / `registry:block` item
+- Storybook included in `pnpm build`; `pnpm storybook`, `pnpm storybook:build`
+- Learning note `docs/learning/phase-2-step-2-storybook.md`
+
+## @dashboard-kit/ui 0.2.0 — Phase 2, Step 1 (registry fundamentals)
+
+- `registry:check`: every listed file exists, every source file is listed, registry dependencies resolve, npm imports are declared
+- `registry:build` runs the check first; output in `packages/ui/public/r` (git-ignored)
+- Registry homepage and starter `components.json` point to the GitHub Pages URL
+- ADR 0009 (Storybook), ADR 0010 (GitHub Pages hosting, public-site caveat and private alternative)
+- `docs/REGISTRY.md` rewritten with how the registry works internally and local testing
+- `docs/learning/` started, with the Step 1 note
+
+## 0.2.0 — Phase 1 (design token system)
+
+- **Tenant themes:** `themes/<name>/DESIGN.md` with overrides only, scoped by `data-theme`, switchable at runtime; examples `grove` and `ember`
+- **Runtime variables for everything themeable:** fonts, spacing unit, text sizes, shadows and easing now switch with the theme
+- **New tokens:** `density.spacing`, `fontSizes`, `motion.duration`, `motion.ease`
+- **Contrast checks:** WCAG check for all text/surface pairs in every theme and mode, configurable via `checks.contrast`
+- **Figma import:** `pnpm tokens:import` for DTCG JSON; comment-preserving, validated with rollback
+- **Theme diff:** `pnpm tokens:diff` with semver bump check and `--strict` mode
+- **Outputs:** `base.css`, `themes/<name>.css`; `tokens.json` now lists all themes
+- **Starter:** theme picker in the header, `forcedTheme` prop for tenant apps, no-flash brand restore, design page shows the active theme incl. density, type scale and motion
+- **Harbor 1.1.0:** light `success` darkened to pass AA (was 4.34:1)
+- Vitest suite for the tokens package (18 tests); ADR 0005
+
+## 0.1.0 — Phase 0 (foundations)
+
+- pnpm + Turborepo monorepo with shared TypeScript/ESLint config
+- `DESIGN.md` token source and `@dashboard-kit/tokens` compiler with validation and watch mode
+- Registry source package with `button`, `card`, `badge`, `utils`
+- Starter app: React 19.3, React Router 8, nuqs, Tailwind 4, theme toggle, overview and design-token pages
+- Project documentation and ADRs 0001–0004
