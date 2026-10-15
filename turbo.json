@@ -1,8 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": [
-    "DESIGN.md",
-    "themes/**/DESIGN.md"
+    "design-tokens.json",
+    "themes/**/design-tokens.json"
   ],
   "tasks": {
     "build": {
@@ -11,8 +11,8 @@
       ],
       "inputs": [
         "$TURBO_DEFAULT$",
-        "$TURBO_ROOT$/DESIGN.md",
-        "$TURBO_ROOT$/themes/**/DESIGN.md"
+        "$TURBO_ROOT$/design-tokens.json",
+        "$TURBO_ROOT$/themes/**/design-tokens.json"
       ],
       "outputs": [
         "dist/**",

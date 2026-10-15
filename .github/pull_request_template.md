@@ -17,4 +17,4 @@
 - [ ] ADR added for any lasting decision (and listed in `docs/adr/README.md`)
 - [ ] `CHANGELOG.md` updated and package versions bumped
 - [ ] `docs/PLAN.md` task status updated
-- [ ] If DESIGN.md changed: `meta.version` bumped (`pnpm tokens:diff --strict`)
+- [ ] If a design-tokens.json changed: `meta.version` bumped (`pnpm tokens:diff --strict`), DESIGN.md changelog line added, tables regenerated (`pnpm tokens:docs`)

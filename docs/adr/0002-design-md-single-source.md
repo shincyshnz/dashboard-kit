@@ -1,6 +1,6 @@
 # ADR 0002 — DESIGN.md as the single source of design tokens
 
-**Status:** Accepted · 2026-10-10
+**Status:** Superseded by 0011 · 2026-10-15 (accepted 2026-10-10)
 
 ## Context
 

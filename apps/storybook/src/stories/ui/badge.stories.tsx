@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-/** `success` and `warning` are kit extensions powered by tokens in DESIGN.md. */
+/** `success` and `warning` are kit extensions powered by tokens in design-tokens.json. */
 export const Variants: Story = {
   render: (args) => (
     <div className="flex flex-wrap items-center gap-2">

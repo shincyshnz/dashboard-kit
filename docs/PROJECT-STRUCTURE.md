@@ -7,18 +7,26 @@ starter. Rules marked 🔒 are enforced by ESLint.
 
 ```
 dashboard-kit/
-├── DESIGN.md                 default theme — defines every token name and value
+├── design-tokens.json        default theme (DTCG) — every token name and value
+├── DESIGN.md                 design guide, rules, agent instructions, generated token tables
 ├── themes/
-│   └── <name>/DESIGN.md      tenant/brand themes — overrides only
+│   └── <name>/
+│       ├── design-tokens.json  tenant theme — overrides only
+│       └── README.md           optional brand notes + changelog
 ├── apps/
 │   ├── starter/              template app
 │   └── storybook/            component catalogue (stories per registry item)
 │       └── AGENTS.md         strict story rules S1–S11
 ├── packages/
-│   ├── tokens/               DESIGN.md compiler + CLI (publishable)
+│   ├── tokens/               design-token compiler + CLI (publishable)
 │   │   ├── src/
-│   │   │   ├── schema.ts     the DESIGN.md contract
-│   │   │   ├── parse.ts      front matter, validation, theme merging
+│   │   │   ├── schema.ts     the internal design contract (zod)
+│   │   │   ├── dtcg.ts       DTCG tree helpers: flatten, aliases, formatting
+│   │   │   ├── values.ts     DTCG values → CSS (colour, dimension, font, shadow…)
+│   │   │   ├── convert.ts    DTCG tree → design object; allowed groups and $types
+│   │   │   ├── parse.ts      JSON reading, validation, theme merging
+│   │   │   ├── docs.ts       generated token tables for DESIGN.md
+│   │   │   ├── json-schema.ts  editor schemas for design-tokens.json
 │   │   │   ├── load.ts       finds the default + themes/*
 │   │   │   ├── contrast.ts   WCAG checks
 │   │   │   ├── compile.ts    CSS + JSON output
@@ -26,6 +34,7 @@ dashboard-kit/
 │   │   │   ├── paths.ts      file locations (DESIGN_FILE, THEMES_DIR)
 │   │   │   ├── cli.ts        build | import | diff
 │   │   │   └── commands/     one file per CLI command
+│   │   ├── schema/           generated JSON Schemas (tokens:schema)
 │   │   ├── test/             vitest suite
 │   │   └── examples/         sample Figma export
 │   ├── ui/                   registry source (not published to npm)
@@ -83,9 +92,9 @@ src/
    if the change is useful for all projects, upstream it to `packages/ui`.
 4. Route paths are defined only in `config/routes.ts`; navigation only in `config/navigation.ts`.
 5. Environment variables are read only in `config/env.ts` (validated with zod).
-6. Theme values are defined only in DESIGN.md files. No colour, radius, font,
+6. Theme values are defined only in design-tokens.json files. No colour, radius, font,
    spacing-unit, text-size, shadow or easing values in `styles/` or components.
-7. A tenant theme folder contains only `DESIGN.md` (and, later, brand assets
+7. A tenant theme folder contains `design-tokens.json`, an optional `README.md` (and, later, brand assets
    such as a logo). Its folder name is its theme id.
 
 ### Imports

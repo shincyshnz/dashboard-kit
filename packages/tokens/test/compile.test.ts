@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { compileAllCss, compileBaseCss, selectorsFor, themeInlineVars } from "../src/compile.ts";
 import { parseTheme } from "../src/parse.ts";
-import { baseDesign, theme } from "./fixtures.ts";
+import { baseDesign, baseTree, theme } from "./fixtures.ts";
 
 describe("compile", () => {
   it("scopes the default theme to :root and .dark", () => {
@@ -17,14 +17,13 @@ describe("compile", () => {
       light: ':root[data-theme="acme"]',
       dark: ':root[data-theme="acme"].dark',
     });
-    const acme = parseTheme(theme("meta: { name: Acme }\nradius: 0rem"), baseDesign, "acme");
+    const acme = parseTheme(theme({ radius: { $value: "0rem" } }), baseTree, "acme").design;
     const css = compileAllCss([
       { name: "default", design: baseDesign },
       { name: "acme", design: acme },
     ]);
     expect(css).toContain(':root[data-theme="acme"] {');
     expect(css).toContain("--radius: 0rem;");
-    // Only one Tailwind mapping block, built from the default token set.
     expect(css.match(/@theme inline/g)).toHaveLength(1);
   });
 

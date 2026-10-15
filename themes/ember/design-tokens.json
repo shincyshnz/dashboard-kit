@@ -1,0 +1,51 @@
+{
+  "$schema": "../../packages/tokens/schema/theme-tokens.schema.json",
+  "$description": "Example imported from packages/tokens/examples/figma-tokens.json. Brick red, square corners.",
+  "$extensions": {
+    "dev.dashboard-kit": {
+      "meta": {
+        "name": "Ember",
+        "version": "1.0.0"
+      }
+    }
+  },
+  "color": {
+    "light": {
+      "primary": {
+        "$value": "oklch(0.433 0.136 29.5)"
+      },
+      "primary-foreground": {
+        "$value": "oklch(0.982 0.009 34.3)"
+      },
+      "ring": {
+        "$value": "oklch(0.521 0.158 29.2)"
+      },
+      "sidebar-primary": {
+        "$value": "oklch(0.433 0.136 29.5)"
+      },
+      "sidebar-primary-foreground": {
+        "$value": "oklch(0.982 0.009 34.3)"
+      }
+    },
+    "dark": {
+      "primary": {
+        "$value": "oklch(0.74 0.126 27.6)"
+      },
+      "primary-foreground": {
+        "$value": "oklch(0.206 0.049 28.1)"
+      },
+      "ring": {
+        "$value": "oklch(0.667 0.151 28.6)"
+      },
+      "sidebar-primary": {
+        "$value": "oklch(0.74 0.126 27.6)"
+      },
+      "sidebar-primary-foreground": {
+        "$value": "oklch(0.206 0.049 28.1)"
+      }
+    }
+  },
+  "radius": {
+    "$value": "4px"
+  }
+}

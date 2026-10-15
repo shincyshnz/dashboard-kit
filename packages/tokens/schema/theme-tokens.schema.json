@@ -1,0 +1,3402 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Dashboard Kit tenant theme (overrides only)",
+  "description": "DTCG-format design tokens. See docs/DESIGN-TOKENS.md.",
+  "type": "object",
+  "required": ["$extensions"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "$description": {
+      "type": "string",
+      "description": "One sentence describing the theme."
+    },
+    "$extensions": {
+      "type": "object",
+      "required": ["dev.dashboard-kit"],
+      "properties": {
+        "dev.dashboard-kit": {
+          "type": "object",
+          "required": ["meta"],
+          "properties": {
+            "meta": {
+              "type": "object",
+              "required": ["name"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string",
+                  "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                }
+              },
+              "additionalProperties": false
+            },
+            "checks": {
+              "type": "object",
+              "properties": {
+                "contrast": {
+                  "type": "object",
+                  "properties": {
+                    "minimum": {
+                      "type": "number",
+                      "minimum": 1,
+                      "maximum": 21
+                    },
+                    "mode": {
+                      "enum": ["error", "warn", "off"]
+                    },
+                    "pairs": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "color": {
+      "type": "object",
+      "properties": {
+        "$type": {
+          "type": "string"
+        },
+        "$description": {
+          "type": "string"
+        },
+        "$extensions": {
+          "type": "object"
+        },
+        "light": {
+          "type": "object",
+          "properties": {
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            },
+            "background": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "card": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "card-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "popover": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "popover-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "primary": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "primary-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "secondary": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "secondary-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "muted": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "muted-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "accent": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "accent-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "destructive": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "border": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "input": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "ring": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "chart-1": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "chart-2": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "chart-3": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "chart-4": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "chart-5": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar-primary": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar-primary-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar-accent": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar-accent-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar-border": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar-ring": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": {
+            "type": "object",
+            "description": "Colour token",
+            "required": ["$value"],
+            "properties": {
+              "$value": {
+                "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "colorSpace": {
+                        "type": "string"
+                      },
+                      "components": {
+                        "type": "array"
+                      },
+                      "alpha": {
+                        "type": "number"
+                      },
+                      "hex": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                ]
+              },
+              "$type": {
+                "type": "string"
+              },
+              "$description": {
+                "type": "string"
+              },
+              "$extensions": {
+                "type": "object"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "dark": {
+          "type": "object",
+          "properties": {
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            },
+            "background": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "card": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "card-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "popover": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "popover-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "primary": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "primary-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "secondary": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "secondary-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "muted": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "muted-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "accent": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "accent-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "destructive": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "border": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "input": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "ring": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "chart-1": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "chart-2": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "chart-3": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "chart-4": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "chart-5": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar-primary": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar-primary-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar-accent": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar-accent-foreground": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar-border": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            },
+            "sidebar-ring": {
+              "type": "object",
+              "description": "Colour token",
+              "required": ["$value"],
+              "properties": {
+                "$value": {
+                  "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "colorSpace": {
+                          "type": "string"
+                        },
+                        "components": {
+                          "type": "array"
+                        },
+                        "alpha": {
+                          "type": "number"
+                        },
+                        "hex": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "$type": {
+                  "type": "string"
+                },
+                "$description": {
+                  "type": "string"
+                },
+                "$extensions": {
+                  "type": "object"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": {
+            "type": "object",
+            "description": "Colour token",
+            "required": ["$value"],
+            "properties": {
+              "$value": {
+                "description": "CSS colour (oklch() preferred, also hex/rgb/hsl), a DTCG colour object, or a {alias}.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "colorSpace": {
+                        "type": "string"
+                      },
+                      "components": {
+                        "type": "array"
+                      },
+                      "alpha": {
+                        "type": "number"
+                      },
+                      "hex": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                ]
+              },
+              "$type": {
+                "type": "string"
+              },
+              "$description": {
+                "type": "string"
+              },
+              "$extensions": {
+                "type": "object"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "radius": {
+      "type": "object",
+      "description": "Base corner radius (dimension).",
+      "required": ["$value"],
+      "properties": {
+        "$value": {},
+        "$type": {
+          "type": "string"
+        },
+        "$description": {
+          "type": "string"
+        },
+        "$extensions": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "spacing": {
+      "type": "object",
+      "description": "Spacing unit (dimension). Every spacing utility is a multiple of it.",
+      "required": ["$value"],
+      "properties": {
+        "$value": {},
+        "$type": {
+          "type": "string"
+        },
+        "$description": {
+          "type": "string"
+        },
+        "$extensions": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "font": {
+      "type": "object",
+      "description": "Font family (string or array of family names).",
+      "properties": {
+        "$type": {
+          "type": "string"
+        },
+        "$description": {
+          "type": "string"
+        },
+        "$extensions": {
+          "type": "object"
+        },
+        "sans": {
+          "type": "object",
+          "description": "Font family (string or array of family names).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "heading": {
+          "type": "object",
+          "description": "Font family (string or array of family names).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "mono": {
+          "type": "object",
+          "description": "Font family (string or array of family names).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "fontSize": {
+      "type": "object",
+      "description": "Font size (dimension).",
+      "properties": {
+        "$type": {
+          "type": "string"
+        },
+        "$description": {
+          "type": "string"
+        },
+        "$extensions": {
+          "type": "object"
+        },
+        "xs": {
+          "type": "object",
+          "description": "Font size (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "sm": {
+          "type": "object",
+          "description": "Font size (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "base": {
+          "type": "object",
+          "description": "Font size (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "lg": {
+          "type": "object",
+          "description": "Font size (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "xl": {
+          "type": "object",
+          "description": "Font size (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "2xl": {
+          "type": "object",
+          "description": "Font size (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "3xl": {
+          "type": "object",
+          "description": "Font size (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "4xl": {
+          "type": "object",
+          "description": "Font size (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "lineHeight": {
+      "type": "object",
+      "description": "Line height for the fontSize of the same name (dimension).",
+      "properties": {
+        "$type": {
+          "type": "string"
+        },
+        "$description": {
+          "type": "string"
+        },
+        "$extensions": {
+          "type": "object"
+        },
+        "xs": {
+          "type": "object",
+          "description": "Line height for the fontSize of the same name (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "sm": {
+          "type": "object",
+          "description": "Line height for the fontSize of the same name (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "base": {
+          "type": "object",
+          "description": "Line height for the fontSize of the same name (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "lg": {
+          "type": "object",
+          "description": "Line height for the fontSize of the same name (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "xl": {
+          "type": "object",
+          "description": "Line height for the fontSize of the same name (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "2xl": {
+          "type": "object",
+          "description": "Line height for the fontSize of the same name (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "3xl": {
+          "type": "object",
+          "description": "Line height for the fontSize of the same name (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "4xl": {
+          "type": "object",
+          "description": "Line height for the fontSize of the same name (dimension).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "shadow": {
+      "type": "object",
+      "description": "Box shadow (CSS string or DTCG shadow object).",
+      "properties": {
+        "$type": {
+          "type": "string"
+        },
+        "$description": {
+          "type": "string"
+        },
+        "$extensions": {
+          "type": "object"
+        },
+        "xs": {
+          "type": "object",
+          "description": "Box shadow (CSS string or DTCG shadow object).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "sm": {
+          "type": "object",
+          "description": "Box shadow (CSS string or DTCG shadow object).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "md": {
+          "type": "object",
+          "description": "Box shadow (CSS string or DTCG shadow object).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "lg": {
+          "type": "object",
+          "description": "Box shadow (CSS string or DTCG shadow object).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "xl": {
+          "type": "object",
+          "description": "Box shadow (CSS string or DTCG shadow object).",
+          "required": ["$value"],
+          "properties": {
+            "$value": {},
+            "$type": {
+              "type": "string"
+            },
+            "$description": {
+              "type": "string"
+            },
+            "$extensions": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "duration": {
+      "type": "object",
+      "description": "Duration such as 120ms.",
+      "properties": {
+        "$type": {
+          "type": "string"
+        },
+        "$description": {
+          "type": "string"
+        },
+        "$extensions": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": {
+        "type": "object",
+        "description": "Duration such as 120ms.",
+        "required": ["$value"],
+        "properties": {
+          "$value": {},
+          "$type": {
+            "type": "string"
+          },
+          "$description": {
+            "type": "string"
+          },
+          "$extensions": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "easing": {
+      "type": "object",
+      "description": "Cubic bézier as [x1, y1, x2, y2].",
+      "properties": {
+        "$type": {
+          "type": "string"
+        },
+        "$description": {
+          "type": "string"
+        },
+        "$extensions": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": {
+        "type": "object",
+        "description": "Cubic bézier as [x1, y1, x2, y2].",
+        "required": ["$value"],
+        "properties": {
+          "$value": {},
+          "$type": {
+            "type": "string"
+          },
+          "$description": {
+            "type": "string"
+          },
+          "$extensions": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

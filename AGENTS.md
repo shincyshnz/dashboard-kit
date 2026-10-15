@@ -10,7 +10,7 @@ folder and win on conflicts — **read the nearest one before editing a file**:
 
 ## What this repo is
 
-A pnpm + Turborepo monorepo: a theme pipeline (`DESIGN.md` → `@dashboard-kit/tokens`),
+A pnpm + Turborepo monorepo: a theme pipeline (`design-tokens.json` → `@dashboard-kit/tokens`),
 a shadcn component registry (`packages/ui`), a component catalogue
 (`apps/storybook`) and a starter app (`apps/starter`). Start with
 [README.md](./README.md) and [docs/PLAN.md](./docs/PLAN.md).
@@ -30,8 +30,8 @@ pnpm docs:check
 
 ## Rules that apply everywhere
 
-1. **Theme values live only in DESIGN.md files.** MUST NOT hard-code colours, radii, fonts, shadows or spacing units in code, CSS or stories. Use token classes. ([docs/DESIGN-TOKENS.md](./docs/DESIGN-TOKENS.md))
-2. **MUST NOT edit generated output:** `packages/tokens/dist/`, `packages/ui/public/r/`, `apps/*/dist/`, `storybook-static/`.
+1. **Theme values live only in `design-tokens.json` files** (root and `themes/<name>/`). MUST NOT hard-code colours, radii, fonts, shadows or spacing units in code, CSS or stories. Use token classes. Before changing the design, read the "For AI agents" section of [DESIGN.md](./DESIGN.md). ([docs/DESIGN-TOKENS.md](./docs/DESIGN-TOKENS.md))
+2. **MUST NOT edit generated output:** `packages/tokens/dist/`, `packages/tokens/schema/`, the `tokens:start`…`tokens:end` block in DESIGN.md, `packages/ui/public/r/`, `apps/*/dist/`, `storybook-static/`. Regenerate with the matching command instead.
 3. **Follow the folder rules** in [docs/PROJECT-STRUCTURE.md](./docs/PROJECT-STRUCTURE.md) and code rules in [docs/CONVENTIONS.md](./docs/CONVENTIONS.md).
 4. **Respect recorded decisions** in [docs/adr/](./docs/adr/README.md). MUST NOT introduce a library or pattern that contradicts an ADR (e.g. Redux, Next.js, a second validation library); propose a new ADR instead.
 5. **Dependencies:** add with `pnpm --filter <package> add`, never at the root; choose releases at least two weeks old; never upgrade majors without being asked.

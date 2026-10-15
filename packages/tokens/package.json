@@ -1,17 +1,19 @@
 {
   "name": "@dashboard-kit/tokens",
-  "version": "0.2.0",
-  "description": "Compiles DESIGN.md into a Tailwind v4 / shadcn theme (theme.css) and tokens.json.",
+  "version": "0.3.0",
+  "description": "Compiles design-tokens.json (DTCG) into a Tailwind v4 / shadcn theme, with validation, contrast checks, docs and schema generation.",
   "type": "module",
   "files": [
     "dist",
-    "src"
+    "src",
+    "schema"
   ],
   "exports": {
     "./theme.css": "./dist/theme.css",
     "./base.css": "./dist/base.css",
     "./themes/*": "./dist/themes/*",
-    "./tokens.json": "./dist/tokens.json"
+    "./tokens.json": "./dist/tokens.json",
+    "./schema/*": "./schema/*"
   },
   "scripts": {
     "build": "tsx src/cli.ts build",
@@ -20,7 +22,9 @@
     "tokens-diff": "tsx src/cli.ts diff",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist .turbo"
+    "clean": "rm -rf dist .turbo",
+    "tokens-docs": "tsx src/cli.ts docs",
+    "tokens-schema": "tsx src/cli.ts schema"
   },
   "dependencies": {
     "culori": "^4.0.2",

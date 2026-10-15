@@ -1,89 +1,114 @@
-import { parse as parseYaml } from "yaml";
-import { designSchema, themeOverrideSchema, type Design } from "./schema.ts";
+import { parseDocument } from "yaml";
+import { resolveAliases, type Tree } from "./dtcg.ts";
+import { treeToRaw } from "./convert.ts";
+import { DesignError, isPlainObject } from "./errors.ts";
+import { designSchema, type Design } from "./schema.ts";
 
-export class DesignError extends Error {}
+export { DesignError, isPlainObject };
 
-const FRONT_MATTER = /^---\r?\n([\s\S]*?)\r?\n---(\r?\n|$)/;
-
-/** Returns the YAML front matter text and its offsets in the file. */
-export function extractFrontMatter(markdown: string, label = "DESIGN.md") {
-  const match = FRONT_MATTER.exec(markdown);
-  if (!match) throw new DesignError(`${label} must start with a YAML block between two --- lines.`);
-  return { yaml: match[1] ?? "", end: match[0].length };
-}
-
-export function readYaml(markdown: string, label = "DESIGN.md"): Record<string, unknown> {
-  const { yaml } = extractFrontMatter(markdown, label);
-  let raw: unknown;
+/** Parses a tokens JSON file, reporting syntax errors with line and column. */
+export function readTokens(text: string, label: string): Tree {
+  let data: unknown;
   try {
-    raw = parseYaml(yaml);
+    data = JSON.parse(text);
   } catch (error) {
-    throw new DesignError(`${label} YAML is invalid: ${(error as Error).message}`);
+    const message = (error as Error).message.split("\n")[0] ?? "";
+    const where = locate(text, message);
+    throw new DesignError(`${label} is not valid JSON${where}: ${message.replace(/ in JSON at position \d+ \(line \d+ column \d+\)/, "")}`);
   }
-  if (!isPlainObject(raw)) throw new DesignError(`${label} front matter must be a YAML mapping.`);
-  return raw;
+  if (!isPlainObject(data)) throw new DesignError(`${label} must contain a JSON object.`);
+  return data;
 }
 
-export function validateDesign(raw: unknown, label = "DESIGN.md"): Design {
+/**
+ * Node reports "(line N column M)" for most JSON syntax errors. When it doesn't,
+ * fall back to the YAML parser (JSON is a subset of YAML), which reports
+ * positions for many of the remaining cases.
+ */
+function locate(text: string, message: string): string {
+  const node = /\(line (\d+) column (\d+)\)/.exec(message);
+  if (node) return ` (line ${node[1]}, column ${node[2]})`;
+  const linePos = parseDocument(text).errors[0]?.linePos?.[0];
+  return linePos ? ` (line ${linePos.line}, column ${linePos.col})` : "";
+}
+
+export function validateDesign(raw: unknown, label: string): Design {
   const result = designSchema.safeParse(raw);
   if (!result.success) {
-    const lines = result.error.issues.map((i) => `  • ${i.path.join(".") || "(root)"}: ${i.message}`);
+    const lines = result.error.issues.map((i) => `  • ${describePath(i.path)}: ${i.message}`);
     throw new DesignError(`${label} has ${lines.length} problem(s):\n${lines.join("\n")}`);
   }
   return result.data;
 }
 
-/** Parses and validates a complete (default) DESIGN.md. */
-export function parseDesign(markdown: string, label = "DESIGN.md"): Design {
-  return validateDesign(readYaml(markdown, label), label);
+/** Translates internal paths back to the JSON paths people edit. */
+function describePath(path: PropertyKey[]): string {
+  const p = path.map(String);
+  const map: Record<string, string> = {
+    colors: "color", typography: "font", shadows: "shadow", density: "spacing",
+  };
+  if (p[0] === "meta" || p[0] === "checks") return `$extensions["dev.dashboard-kit"].${p.join(".")}`;
+  if (p[0] === "motion") return [p[1] === "ease" ? "easing" : "duration", ...p.slice(2)].join(".");
+  if (p[0] === "fontSizes") return ["fontSize", ...p.slice(1)].join(".");
+  if (p[0] === "density") return "spacing";
+  return [map[p[0] ?? ""] ?? p[0], ...p.slice(1)].join(".") || "(root)";
+}
+
+/** Tree → validated design (aliases resolved). */
+export function treeToDesign(tree: Tree, label: string): Design {
+  return validateDesign(treeToRaw(resolveAliases(tree, label), label), label);
+}
+
+/** Parses the default design-tokens.json. */
+export function parseDesign(text: string, label = "design-tokens.json"): { design: Design; tree: Tree } {
+  const tree = readTokens(text, label);
+  return { design: treeToDesign(tree, label), tree };
 }
 
 /**
- * Parses a tenant theme. It only lists what differs from the default; the result
- * is the default deep-merged with the overrides, then fully validated.
- * Themes may change values but not introduce token names the default lacks,
- * because Tailwind utilities are generated from the default's token set.
+ * Parses a tenant theme. It lists only what differs from the default; the trees
+ * are deep-merged first (so `$type`s and descriptions are inherited and aliases
+ * see the tenant's values), then converted and fully validated.
+ * Themes may change values but not add token names: Tailwind utilities are
+ * generated from the default's token set.
  */
-export function parseTheme(markdown: string, base: Design, label: string): Design {
-  const raw = readYaml(markdown, label);
-  const shape = themeOverrideSchema.safeParse(raw);
-  if (!shape.success) throw new DesignError(`${label}: meta.name is required.`);
-
-  const unknown = findUnknownKeys(raw, base as unknown as Record<string, unknown>, ["meta", "checks"]);
+export function parseTheme(text: string, baseTree: Tree, label: string): { design: Design; tree: Tree } {
+  const override = readTokens(text, label);
+  const name = (override.$extensions as Record<string, { meta?: { name?: unknown } }> | undefined)?.["dev.dashboard-kit"]?.meta?.name;
+  if (typeof name !== "string" || !name) {
+    throw new DesignError(`${label}: $extensions["dev.dashboard-kit"].meta.name is required.`);
+  }
+  const unknown = findUnknownTokens(override, baseTree);
   if (unknown.length > 0) {
     throw new DesignError(
-      `${label} defines tokens that the default DESIGN.md does not have:\n${unknown
+      `${label} defines tokens that the default design-tokens.json does not have:\n${unknown
         .map((p) => `  • ${p}`)
-        .join("\n")}\n  Add them to the default DESIGN.md first so every theme provides them.`,
+        .join("\n")}\n  Add them to the default design-tokens.json first so every theme provides them.`,
     );
   }
-  return validateDesign(deepMerge(base, raw), label);
-}
-
-export function isPlainObject(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
+  // A theme inherits the default's version only if it doesn't declare its own.
+  const tree = deepMerge(baseTree, override);
+  return { design: treeToDesign(tree, label), tree };
 }
 
 export function deepMerge<T>(base: T, override: unknown): T {
   if (!isPlainObject(base) || !isPlainObject(override)) return (override ?? base) as T;
   const out: Record<string, unknown> = { ...base };
   for (const [key, value] of Object.entries(override)) {
-    out[key] = key in out ? deepMerge(out[key], value) : value;
+    // Token values replace wholesale (an array or object $value must not be merged).
+    out[key] = key in out && key !== "$value" ? deepMerge(out[key], value) : value;
   }
   return out as T;
 }
 
-/** Dot-paths present in `override` but absent from `base` (ignoring free-form groups). */
-function findUnknownKeys(override: Record<string, unknown>, base: Record<string, unknown>, free: string[], prefix = ""): string[] {
+/** Token/group paths present in `override` but absent from `base`; `$`-keys are free. */
+function findUnknownTokens(override: Record<string, unknown>, base: Record<string, unknown>, prefix = ""): string[] {
   const found: string[] = [];
   for (const [key, value] of Object.entries(override)) {
+    if (key.startsWith("$")) continue;
     const path = prefix ? `${prefix}.${key}` : key;
-    if (!prefix && free.includes(key)) continue;
-    if (!(key in base)) {
-      found.push(path);
-    } else if (isPlainObject(value) && isPlainObject(base[key])) {
-      found.push(...findUnknownKeys(value, base[key], free, path));
-    }
+    if (!(key in base)) found.push(path);
+    else if (isPlainObject(value) && isPlainObject(base[key])) found.push(...findUnknownTokens(value, base[key], path));
   }
   return found;
 }

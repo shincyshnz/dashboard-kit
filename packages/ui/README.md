@@ -21,7 +21,7 @@ Rules for every component here:
 1. Use only semantic classes (`bg-primary`, `text-muted-foreground`,
    `rounded-lg`, `shadow-sm`, `font-heading`). Never raw palette classes like
    `bg-blue-600` or arbitrary values like `rounded-[7px]` — those would not
-   follow DESIGN.md.
+   follow design-tokens.json.
 2. Register every new file in `registry.json`.
 3. Keep upstream shadcn structure (`data-slot`, `cva` variants) so upgrades
    from shadcn stay easy to merge.

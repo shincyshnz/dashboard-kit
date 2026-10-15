@@ -36,7 +36,7 @@ interface ThemeProviderProps {
 }
 
 /**
- * Applies the two theme switches DESIGN.md compiles to:
+ * Applies the two theme switches design-tokens.json compiles to:
  * `.dark` on <html> for colour mode, `data-theme` on <html> for the brand/tenant theme.
  */
 export function ThemeProvider({ children, forcedTheme }: ThemeProviderProps) {

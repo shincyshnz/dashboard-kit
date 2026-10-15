@@ -7,7 +7,7 @@ export interface ThemeContextValue {
   mode: ColorMode;
   resolvedMode: "light" | "dark";
   setMode: (mode: ColorMode) => void;
-  /** Brand / tenant theme name from themes/<name>/DESIGN.md ("default" = root DESIGN.md). */
+  /** Brand / tenant theme name from themes/<name>/design-tokens.json ("default" = root design-tokens.json). */
   theme: string;
   themes: readonly { name: string; label: string }[];
   setTheme: (name: string) => void;

@@ -2,129 +2,163 @@
 
 ## The rule
 
-**To re-theme the kit, edit a DESIGN.md file. Nothing else.**
+**To re-theme the kit, edit a `design-tokens.json` file. Nothing else.**
 
-| File | What it is |
+| File | Role |
 |---|---|
-| `DESIGN.md` (repo root) | The **default theme**. Defines every token name and value. |
-| `themes/<name>/DESIGN.md` | A **tenant / brand theme**. Lists only the values that differ. |
+| `design-tokens.json` (repo root) | The **default theme**: every token name and value. |
+| `themes/<name>/design-tokens.json` | A **tenant theme**: only the values that differ. |
+| `DESIGN.md` (repo root) | The **guide**: design intent, rules, agent instructions, changelog, and generated token tables. |
+| `themes/<name>/README.md` | Optional notes about a tenant's brand. |
 
-Each file has two parts: a YAML block between the `---` lines (read by
-`@dashboard-kit/tokens`) and a Markdown body (read by people).
+Why JSON and not YAML in DESIGN.md: [ADR 0011](./adr/0011-dtcg-json-tokens.md).
+
+## The file format (DTCG)
+
+The files follow the [W3C Design Tokens Community Group](https://www.designtokens.org/) format — the
+same one Figma Variables and Tokens Studio export.
+
+```jsonc
+{
+  "$schema": "./packages/tokens/schema/design-tokens.schema.json",   // editor autocomplete
+  "$description": "Default Dashboard Kit theme. …",
+  "$extensions": {
+    "dev.dashboard-kit": {
+      "meta": { "name": "Harbor", "version": "1.1.0" },
+      "checks": { "contrast": { "minimum": 4.5, "mode": "error", "pairs": [] } }
+    }
+  },
+  "color": {
+    "$type": "color",                         // inherited by every token in the group
+    "light": {
+      "primary": { "$value": "oklch(0.45 0.09 225)", "$description": "Main brand / action colour." }
+    },
+    "dark": { "primary": { "$value": "oklch(0.72 0.1 220)" } }
+  },
+  "radius": { "$type": "dimension", "$value": "0.625rem" }
+}
+```
+
+| Concept | Meaning |
+|---|---|
+| **Token** | Any object with a `$value`. |
+| **Group** | An object without `$value` that contains tokens or groups. |
+| `$type` | What kind of value it is. Set on a group, it applies to everything inside. |
+| `$description` | What the token is for. Shown in the generated tables in DESIGN.md and in editor tooltips. |
+| `{path.to.token}` | An **alias**: `"$value": "{color.light.primary}"` reuses another token's value. |
+| `$extensions` | Tool-specific data. Ours lives under `"dev.dashboard-kit"`. |
+
+### Groups
+
+| Group | `$type` | Tailwind utilities | Runtime CSS variables |
+|---|---|---|---|
+| `color.light.*`, `color.dark.*` | `color` | `bg-X`, `text-X`, `border-X`, `ring-X`, `bg-X/50` … | `--X` |
+| `radius` | `dimension` | `rounded-sm/md/lg/xl` | `--radius` |
+| `spacing` | `dimension` | every spacing utility (`p-4`, `gap-2`, `h-9`, `size-4`…) | `--dk-spacing` |
+| `font.sans/heading/mono` | `fontFamily` | `font-sans`, `font-heading`, `font-mono` | `--dk-font-*` |
+| `fontSize.<size>` + `lineHeight.<size>` | `dimension` | `text-xs` … `text-3xl` | `--dk-text-*`, `--dk-text-*-lh` |
+| `shadow.xs … xl` | `shadow` | `shadow-xs` … `shadow-xl` | `--dk-shadow-*` |
+| `duration.<name>` | `duration` | `duration-(--duration-<name>)` | `--duration-<name>` |
+| `easing.<name>` | `cubicBezier` | `ease-<name>` | `--dk-ease-<name>` |
+
+Any other top-level group is an error. A token whose `$type` doesn't match its group is an error.
+
+### Value formats
+
+The house style is **readable CSS strings**; DTCG object forms are accepted too (useful when pasting a Figma export).
+
+| `$type` | House style | Also accepted |
+|---|---|---|
+| `color` | `"oklch(0.45 0.09 225)"` (or hex, `rgb()`, `hsl()`) | `{ "colorSpace": "srgb", "components": [0.1, 0.4, 0.5] }` |
+| `dimension` | `"0.625rem"` | `{ "value": 10, "unit": "px" }` |
+| `duration` | `"120ms"` | `{ "value": 120, "unit": "ms" }` |
+| `fontFamily` | `["Public Sans Variable", "ui-sans-serif", "sans-serif"]` | `"Inter"` |
+| `cubicBezier` | `[0.2, 0, 0, 1]` | `"cubic-bezier(0.2, 0, 0, 1)"` |
+| `shadow` | `"0 1px 3px 0 oklch(0.21 0.02 240 / 0.08)"` | `{ "color": "#0001", "offsetX": "0px", "offsetY": "1px", "blur": "3px", "spread": "0px" }` |
+
+Font names are quoted automatically when compiled; generic families (`sans-serif`, `ui-monospace`…) aren't.
 
 ## Common changes
 
 | I want to… | Edit |
 |---|---|
-| Change the brand colour | `colors.light.primary`, `colors.dark.primary` and their `-foreground` |
+| Change the brand colour | `color.light.primary`, `color.dark.primary` and their `-foreground` |
 | Make corners sharper or rounder | `radius` |
-| Make the UI denser or roomier | `density.spacing` (default `0.25rem`) |
-| Change text sizes | `fontSizes.sm` … `fontSizes.3xl` |
-| Change the font | `typography.*` — then load the font (see below) |
-| Recolour the sidebar | `sidebar`, `sidebar-*` |
-| Restyle chart series | `chart-1` … `chart-5` |
-| Change animation feel | `motion.duration.*`, `motion.ease.*` |
-| Add a colour, e.g. `info` | Add `info` and `info-foreground` to light **and** dark of the root DESIGN.md |
-| Add a tenant theme | Create `themes/<name>/DESIGN.md` (see "Tenant themes") |
+| Make the UI denser or roomier | `spacing` (default `0.25rem`; `0.23rem` is ~8% denser) |
+| Change text sizes | `fontSize.*` and `lineHeight.*` |
+| Change the font | `font.*`, then load the family in the app's fonts CSS (below) |
+| Recolour the sidebar | `color.*.sidebar*` |
+| Restyle chart series | `color.*.chart-1` … `chart-5` |
+| Change animation feel | `duration.*`, `easing.*` |
+| Keep two tokens identical | `"$value": "{color.light.primary}"` |
+| Add a colour, e.g. `info` | Add `info` and `info-foreground` to `color.light` **and** `color.dark` in the root file, with a `$description` |
+| Add a tenant theme | Create `themes/<name>/design-tokens.json` (see below) |
 
-## Token groups
-
-| Group | YAML | Tailwind utilities | Runtime CSS variables |
-|---|---|---|---|
-| Colours | `colors.light.*`, `colors.dark.*` | `bg-X`, `text-X`, `border-X`, `ring-X`, `bg-X/50` … | `--X` |
-| Radius | `radius` | `rounded-sm/md/lg/xl` | `--radius` |
-| Fonts | `typography.sans/heading/mono` | `font-sans`, `font-heading`, `font-mono` | `--dk-font-*` |
-| Density | `density.spacing` | every spacing utility (`p-4`, `gap-2`, `h-9`, `size-4`…) | `--dk-spacing` |
-| Text sizes | `fontSizes.<size>` | `text-xs` … `text-3xl` | `--dk-text-*`, `--dk-text-*-lh` |
-| Shadows | `shadows.xs … xl` | `shadow-xs` … `shadow-xl` | `--dk-shadow-*` |
-| Easing | `motion.ease.<name>` | `ease-<name>` | `--dk-ease-<name>` |
-| Durations | `motion.duration.<name>` | `duration-(--duration-<name>)` | `--duration-<name>` |
-
-Use the Tailwind utilities in components. Use the runtime variables only when
-you need a value in inline styles, canvas or a chart library.
-
-`density.spacing` scales **every** spacing utility at once. Small changes go a
-long way: `0.23rem` is about 8% denser than the default.
+After any change: bump `meta.version`, add a changelog line in DESIGN.md, and
+run `pnpm tokens:docs` (automatic while `pnpm dev` runs).
 
 ### Changing fonts
-
-DESIGN.md names the font; the app must load it in
-`apps/starter/src/styles/fonts.css`:
 
 ```bash
 pnpm --filter @dashboard-kit/starter add @fontsource-variable/inter
 ```
 ```css
+/* apps/starter/src/styles/fonts.css */
 @import "@fontsource-variable/inter";
 ```
-```yaml
-typography:
-  sans: '"Inter Variable", ui-sans-serif, system-ui, sans-serif'
+```json
+"font": { "sans": { "$value": ["Inter Variable", "ui-sans-serif", "system-ui", "sans-serif"] } }
 ```
 
 ## Tenant themes
 
-A tenant theme lists **only what differs** from the root DESIGN.md:
+A tenant theme lists **only what differs** from the root file:
 
-```yaml
-# themes/grove/DESIGN.md
----
-meta:
-  name: Grove
-  version: 1.0.0
-radius: 0.375rem
-density:
-  spacing: 0.23rem
-colors:
-  light:
-    primary: oklch(0.44 0.1 150)
-    primary-foreground: oklch(0.98 0.01 150)
-  dark:
-    primary: oklch(0.76 0.13 140)
----
+```json
+{
+  "$schema": "../../packages/tokens/schema/theme-tokens.schema.json",
+  "$description": "Forest green, tighter corners, denser layout.",
+  "$extensions": { "dev.dashboard-kit": { "meta": { "name": "Grove", "version": "1.0.0" } } },
+  "radius": { "$value": "0.375rem" },
+  "spacing": { "$value": "0.23rem" },
+  "color": {
+    "light": { "primary": { "$value": "oklch(0.44 0.1 150)" } },
+    "dark": { "primary": { "$value": "oklch(0.76 0.13 140)" } }
+  }
+}
 ```
 
 Rules:
 
 1. The folder name is the theme id (kebab-case; `default` is reserved).
-2. `meta.name` is required; everything else is inherited from the root file.
-3. A theme may change values but **not add token names**. Tailwind utilities
-   are generated from the root file's token set, so add new names there first.
-4. Merged themes are validated and contrast-checked like the default.
+2. `meta.name` is required; everything else, including `$type`s and descriptions, is inherited.
+3. A theme may change values but **not add token names**. Tailwind utilities come from the root file's token set; add new names there first.
+4. Aliases resolve **after** merging: if the root says `sidebar-primary = {color.light.primary}` and a tenant overrides `primary`, its sidebar follows automatically.
+5. Merged themes are validated and contrast-checked like the default.
 
 ### Switching at runtime
-
-Themes switch by attribute, with no rebuild or reload:
 
 ```html
 <html data-theme="grove" class="dark">
 ```
 
-In the starter, use the theme context:
-
 ```tsx
 const { theme, themes, setTheme, setMode } = useTheme();
-setTheme("grove");   // stored per browser
-```
-
-For a multi-tenant app, force the tenant's theme instead of the user's choice:
-
-```tsx
-<ThemeProvider forcedTheme={tenant.themeName}>…</ThemeProvider>
+setTheme("grove");                                  // stored per browser
+<ThemeProvider forcedTheme={tenant.themeName}>…     // multi-tenant: tenant decides
 ```
 
 ### Loading themes lazily
 
 `theme.css` contains every theme. With many tenants, import only the base and
-load the tenant's file when you know who the tenant is:
+load the tenant's file when you know the tenant:
 
 ```css
-@import "@dashboard-kit/tokens/base.css";       /* default theme + Tailwind mapping */
+@import "@dashboard-kit/tokens/base.css";
 ```
 ```ts
 import groveTheme from "@dashboard-kit/tokens/themes/grove.css?url";
-const link = Object.assign(document.createElement("link"), { rel: "stylesheet", href: groveTheme });
-document.head.append(link);
+document.head.append(Object.assign(document.createElement("link"), { rel: "stylesheet", href: groveTheme }));
 ```
 
 ## Build outputs
@@ -136,43 +170,57 @@ document.head.append(link);
 | `dist/themes/<name>.css` | One tenant theme's variables | Lazy loading |
 | `dist/tokens.json` | All themes' resolved values + theme list | JS needs values (charts, theme picker) |
 
-Generated selectors:
-
-| Theme | Light | Dark |
+| Theme | Light selector | Dark selector |
 |---|---|---|
 | default | `:root` | `.dark` |
 | `<name>` | `:root[data-theme="<name>"]` | `:root[data-theme="<name>"].dark` |
+
+## Commands
+
+| Command | Does |
+|---|---|
+| `pnpm tokens:build` | Validate, contrast-check and compile every theme |
+| `pnpm tokens:watch` | Same, on every save; also refreshes DESIGN.md's tables |
+| `pnpm tokens:docs` | Regenerate DESIGN.md's token tables (`--check` fails if stale) |
+| `pnpm tokens:schema` | Regenerate the JSON Schemas (`--check` fails if stale) |
+| `pnpm tokens:import` | Import Figma / Tokens Studio exports |
+| `pnpm tokens:diff` | Show token changes and the required version bump |
+
+`pnpm docs:check` runs the `--check` variants, so stale tables or schemas fail CI.
 
 ## Quality checks
 
 ### Validation
 
-The build stops with the exact location of the problem:
+Errors point at the JSON path you edit:
 
 ```
-✖ tokens: DESIGN.md has 1 problem(s):
-  • colors.light.ring: must be oklch(), hsl(), rgb(), hex or var(--token)
+✖ tokens: design-tokens.json has 2 problem(s):
+  • unknown top-level group "colour" (allowed: color, radius, spacing, font, …)
+  • color.light.ring: value "bluish" is not a valid color
 ```
 
-Checked: required shadcn colours present, same names in light and dark,
-valid colour/length/time syntax, kebab-case names, semver `meta.version`,
-themes not introducing unknown tokens.
+Syntax errors give the line and column:
+
+```
+✖ tokens: design-tokens.json is not valid JSON (line 3, column 3): Expected ',' or '}' after property value
+```
+
+Checked: allowed groups and `$type`s, valid values per type, required shadcn
+colours, same names in light and dark, aliases that resolve (no cycles),
+semver `meta.version`, tenant themes not adding token names.
+
+With the `$schema` line in place, VS Code and other editors show most of these
+problems — and autocomplete token names — while you type.
 
 ### Contrast (WCAG)
 
-Every theme, in light and dark, is checked for:
+Every theme, in light and dark, is checked for each `X` / `X-foreground`
+pair, `foreground` and `muted-foreground` on `background`, `muted-foreground`
+on `card`, and any extra pairs in `checks.contrast.pairs`:
 
-- each `X` / `X-foreground` pair (primary, card, sidebar-accent, success…)
-- `foreground` and `muted-foreground` on `background`, and `muted-foreground` on `card`
-- any extra pairs listed in `checks.contrast.pairs`
-
-```yaml
-checks:
-  contrast:
-    minimum: 4.5           # WCAG AA for normal text; 3 for large text / UI only
-    mode: error            # error | warn | off
-    pairs:
-      - [chart-1, background]
+```json
+"checks": { "contrast": { "minimum": 4.5, "mode": "error", "pairs": [["chart-1", "background"]] } }
 ```
 
 ```
@@ -180,50 +228,36 @@ checks:
   • light: primary-foreground on primary = 1.86:1
 ```
 
-Translucent colours (e.g. `oklch(1 0 0 / 10%)`) are skipped, because their
-contrast depends on what is underneath. In watch mode a failing save is
-reported and the last valid theme stays live.
+Translucent colours are skipped. In watch mode a failing save is reported and
+the last valid theme stays live.
 
 ## Importing from Figma
 
-Export variables as **DTCG JSON** (Figma's native export, Tokens Studio, or
-any plugin producing `$type` / `$value`), then:
+Export variables as DTCG JSON (Figma's native export, Tokens Studio, or a plugin), then:
 
 ```bash
-# one file with top-level "light" and "dark" groups
-pnpm tokens:import --file figma-tokens.json
-
-# one file per Figma mode
-pnpm tokens:import --light light.json --dark dark.json
-
-# into a tenant theme (created if missing)
-pnpm tokens:import --file figma-tokens.json --theme ember
-
-# preview without writing
-pnpm tokens:import --file figma-tokens.json --dry-run
+pnpm tokens:import --file figma-tokens.json                  # top-level "light" and "dark" groups
+pnpm tokens:import --light light.json --dark dark.json       # one file per Figma mode
+pnpm tokens:import --file figma-tokens.json --theme ember     # into a tenant theme (created if missing)
+pnpm tokens:import --file figma-tokens.json --dry-run         # preview
 ```
 
-How names map: nested groups are joined with `-` and camelCase becomes
-kebab-case, so `color / sidebar / primaryForeground` becomes
-`sidebar-primary-foreground`. A leading `color` group is dropped.
+Nested groups are joined with `-` and camelCase becomes kebab-case:
+`color / sidebar / primaryForeground` → `sidebar-primary-foreground`.
 
 | Figma token | Becomes |
 |---|---|
-| any `color` | `colors.<mode>.<name>`, converted to `oklch()` |
-| `radius` / `border-radius` (dimension) | `radius` |
-| `font-sans`, `font-heading`, `font-mono` (fontFamily) | `typography.*` |
+| any `color` | `color.<mode>.<name>`, converted to an `oklch()` string |
+| `radius` / `border-radius` | `radius` |
+| `font-sans` / `font-heading` / `font-mono` | `font.*` |
 
-Comments and layout in DESIGN.md are preserved — only token lines change. The
-result is validated and contrast-checked; if it would be invalid, the file is
-restored and the problems are listed. A worked example lives in
+Existing `$description`s are kept. The result is validated and
+contrast-checked; if invalid, the file is restored. Example:
 `packages/tokens/examples/figma-tokens.json` (it produced `themes/ember`).
 
-Name your Figma variables like shadcn tokens (`primary`, `primary-foreground`,
-`sidebar/accent`…) and the import needs no mapping at all.
+Name Figma variables like shadcn tokens and no mapping is needed.
 
 ## Versioning and review
-
-Bump `meta.version` for every change and add a changelog line in the file:
 
 | Change | Bump |
 |---|---|
@@ -231,25 +265,17 @@ Bump `meta.version` for every change and add a changelog line in the file:
 | A token added | minor |
 | A token removed or renamed | major |
 
-`pnpm tokens:diff` shows what changed and checks the bump:
+`$description`-only edits need no bump.
 
 ```bash
-pnpm tokens:diff                         # vs git HEAD
-pnpm tokens:diff --base main             # vs a branch
-pnpm tokens:diff --theme grove --strict  # exit 1 if the bump is too small (for CI)
-pnpm tokens:diff --base-file old.md      # vs a file
+pnpm tokens:diff                          # vs git HEAD
+pnpm tokens:diff --base main              # vs a branch
+pnpm tokens:diff --theme grove --strict   # exit 1 if the bump is too small (CI)
+pnpm tokens:diff --base-file old.json     # vs a file
 ```
 
-```
-DESIGN.md: 1.1.0 → 1.1.0
-  ~ colors.light.primary: oklch(0.45 0.09 225) → oklch(0.47 0.09 225)
-
-Required version bump: patch (removed → major, added → minor, changed → patch)
-⚠ meta.version bump is "none" but these changes need at least "patch".
-```
-
-## Using a DESIGN.md outside the monorepo
+## Outside the monorepo
 
 ```bash
-DESIGN_FILE=./brand/DESIGN.md THEMES_DIR=./brand/themes pnpm tokens:build
+TOKENS_FILE=./brand/design-tokens.json THEMES_DIR=./brand/themes DESIGN_DOC=./brand/DESIGN.md pnpm tokens:build
 ```

@@ -20,7 +20,7 @@ const preview: Preview = {
   // Toolbar menus. Their values live in `context.globals` for every story.
   globalTypes: {
     theme: {
-      description: "Brand / tenant theme (themes/<name>/DESIGN.md)",
+      description: "Brand / tenant theme (themes/<name>/design-tokens.json)",
       toolbar: {
         title: "Theme",
         icon: "paintbrush",

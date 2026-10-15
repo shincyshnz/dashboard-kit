@@ -51,7 +51,7 @@ export const RadiusAndShadow: StoryObj = {
   ),
 };
 
-/** Every spacing utility is a multiple of `density.spacing` from DESIGN.md. */
+/** Every spacing utility is a multiple of `spacing` from design-tokens.json. */
 export const Density: StoryObj = {
   render: () => (
     <div className="flex items-end gap-3">

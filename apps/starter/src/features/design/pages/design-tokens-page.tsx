@@ -13,13 +13,13 @@ const shadowSizes = ["shadow-xs", "shadow-sm", "shadow-md", "shadow-lg"] as cons
 const radiusSizes = ["rounded-sm", "rounded-md", "rounded-lg", "rounded-xl"] as const;
 const textSizes = ["text-xs", "text-sm", "text-base", "text-lg", "text-xl", "text-2xl", "text-3xl"] as const;
 
-/** Live preview of the active DESIGN.md — the quickest way to review a theme change. */
+/** Live preview of the active design-tokens.json — the quickest way to review a theme change. */
 export function DesignTokensPage() {
   const { resolvedMode, theme } = useTheme();
   const design = themes[theme] ?? themes[tokens.default];
   if (!design) return null;
   const palette = design.colors[resolvedMode];
-  const source = theme === tokens.default ? "DESIGN.md" : `themes/${theme}/DESIGN.md`;
+  const source = theme === tokens.default ? "design-tokens.json" : `themes/${theme}/design-tokens.json`;
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-6">

@@ -1,6 +1,6 @@
 /*
  * Same setup as apps/starter/src/styles/index.css: Tailwind + the generated
- * theme. Theme values come from DESIGN.md files only.
+ * theme. Theme values come from design-tokens.json files only.
  */
 @import "tailwindcss";
 @import "tw-animate-css";

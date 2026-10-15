@@ -13,7 +13,7 @@ pnpm storybook:build    # static site in apps/storybook/storybook-static
 
 | Control | Sets | Source |
 |---|---|---|
-| **Theme** | `data-theme` on `<html>` | `tokens.json` → every `themes/<name>/DESIGN.md` |
+| **Theme** | `data-theme` on `<html>` | `tokens.json` → every `themes/<name>/design-tokens.json` |
 | **Mode** | `.dark` on `<html>` | Light / dark |
 
 Both are applied by the `withTheme` decorator in `.storybook/preview.tsx` — the
