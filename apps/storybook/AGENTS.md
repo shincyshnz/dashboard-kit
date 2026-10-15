@@ -13,7 +13,7 @@ Its error messages cite the rule numbers below (S1–S11).
   alias. A story shows exactly what `npx shadcn add @dashboard-kit/<name>` installs.
 - The toolbar sets `data-theme` (tenant theme) and `.dark` (mode) on `<html>`
   via the `withTheme` decorator in `.storybook/preview.tsx`.
-- Themes come from `DESIGN.md` files. Components and stories use only token classes.
+- Themes come from `design-tokens.json` files. Components and stories use only token classes.
 
 ## Rules
 

@@ -2,13 +2,15 @@ import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, relative } from "node:path";
 import { parseArgs } from "node:util";
-import { parseDocument } from "yaml";
 import { parseTokenColor, toOklchString } from "../color.ts";
+import { EXTENSION, flatten, formatJson, getAt, setTokenValue, type Tree } from "../dtcg.ts";
+import { DesignError, isPlainObject } from "../errors.ts";
 import { loadThemes } from "../load.ts";
-import { DesignError, extractFrontMatter, isPlainObject, readYaml } from "../parse.ts";
-import { designFile, fromUser, repoRoot, themeFile } from "../paths.ts";
+import { readTokens } from "../parse.ts";
+import { fromUser, repoRoot, themeFile, tokensFile } from "../paths.ts";
+import { toCss } from "../values.ts";
 
-interface FlatToken {
+export interface ImportedToken {
   name: string;
   type: string | undefined;
   value: unknown;
@@ -22,32 +24,13 @@ const kebab = (s: string) =>
 
 const GROUP_PREFIXES = new Set(["color", "colors", "colour", "colours"]);
 
-/** Flattens DTCG JSON ({ $type, $value } leaves) into kebab-case token names. */
-export function flattenDtcg(node: unknown, path: string[] = [], inheritedType?: string): FlatToken[] {
-  if (!isPlainObject(node)) return [];
-  const type = typeof node.$type === "string" ? node.$type : inheritedType;
-  if ("$value" in node) {
+/** Flattens a Figma / Tokens Studio DTCG export into kebab-case names. */
+export function flattenDtcg(node: unknown): ImportedToken[] {
+  return flatten(node).map(({ path, type, value }) => {
     const segments = path.map(kebab);
     if (segments.length > 1 && GROUP_PREFIXES.has(segments[0] ?? "")) segments.shift();
-    return [{ name: segments.join("-"), type, value: node.$value }];
-  }
-  return Object.entries(node)
-    .filter(([key]) => !key.startsWith("$"))
-    .flatMap(([key, child]) => flattenDtcg(child, [...path, key], type));
-}
-
-function dimension(value: unknown): string | undefined {
-  if (typeof value === "string") return value;
-  if (isPlainObject(value) && typeof value.value === "number" && typeof value.unit === "string") {
-    return `${value.value}${value.unit}`;
-  }
-  return undefined;
-}
-
-function fontFamily(value: unknown): string | undefined {
-  const list = Array.isArray(value) ? value : typeof value === "string" ? [value] : [];
-  const quoted = list.map((f) => String(f)).map((f) => (/\s/.test(f) && !/^["']/.test(f) ? `"${f}"` : f));
-  return quoted.length ? quoted.join(", ") : undefined;
+    return { name: segments.join("-"), type, value };
+  });
 }
 
 async function readJson(path: string): Promise<unknown> {
@@ -58,13 +41,13 @@ async function readJson(path: string): Promise<unknown> {
   }
 }
 
-const HELP = `Import Figma Variables / Tokens Studio (DTCG JSON) into DESIGN.md
+const HELP = `Import Figma Variables / Tokens Studio (DTCG JSON) into design-tokens.json
 
   pnpm tokens:import --light light.json --dark dark.json [--theme <name>] [--dry-run]
-  pnpm tokens:import --file tokens.json                  # file with top-level "light" and "dark" groups
+  pnpm tokens:import --file tokens.json        # one file with top-level "light" and "dark" groups
 
-Colours become oklch(). Recognised extras: "radius" (dimension) and
-font families named sans / heading / mono. Comments in DESIGN.md are kept.`;
+Colours become oklch() strings. Also recognised: "radius" (dimension) and
+font families named sans / heading / mono. Existing $description fields are kept.`;
 
 export async function importTokens(argv: string[]) {
   const { values } = parseArgs({
@@ -83,7 +66,7 @@ export async function importTokens(argv: string[]) {
     return;
   }
 
-  const modes: Partial<Record<"light" | "dark", FlatToken[]>> = {};
+  const modes: Partial<Record<"light" | "dark", ImportedToken[]>> = {};
   if (values.file) {
     const json = await readJson(values.file);
     if (!isPlainObject(json)) throw new DesignError(`${values.file} must contain a JSON object.`);
@@ -99,9 +82,8 @@ export async function importTokens(argv: string[]) {
   const theme = values.theme;
   const target = themeFile(theme);
   const label = relative(repoRoot, target);
-  const knownColors = new Set(Object.keys(
-    ((readYaml(await readFile(designFile, "utf8")).colors as Record<string, Record<string, string>> | undefined)?.light) ?? {},
-  ));
+  const baseTree = readTokens(await readFile(tokensFile, "utf8"), relative(repoRoot, tokensFile));
+  const knownColors = new Set(Object.keys((getAt(baseTree, ["color", "light"]) as Tree | undefined) ?? {}).filter((k) => !k.startsWith("$")));
 
   if (!existsSync(target)) {
     if (theme === "default") throw new DesignError(`${label} not found.`);
@@ -109,36 +91,36 @@ export async function importTokens(argv: string[]) {
     await mkdir(dirname(target), { recursive: true });
     await writeFile(
       target,
-      `---\nmeta:\n  name: ${title}\n  version: 1.0.0\n---\n\n# ${title} theme\n\nOnly values that differ from the default DESIGN.md are listed above.\n`,
+      formatJson({
+        $schema: "../../packages/tokens/schema/theme-tokens.schema.json",
+        $extensions: { [EXTENSION]: { meta: { name: title, version: "1.0.0" } } },
+      }),
     );
     console.log(`+ created ${label}`);
   }
 
-  const text = await readFile(target, "utf8");
-  const { yaml, end } = extractFrontMatter(text, label);
-  const doc = parseDocument(yaml);
+  const original = await readFile(target, "utf8");
+  const tree = readTokens(original, label);
   const changes: string[] = [];
   const skipped: string[] = [];
 
-  const set = (path: (string | number)[], value: string) => {
-    const before = doc.getIn(path);
-    if (before === value) return;
-    doc.setIn(path, value);
-    changes.push(`${before === undefined ? "+" : "~"} ${path.join(".")}: ${before === undefined ? "" : `${String(before)} → `}${value}`);
+  const set = (path: string[], value: unknown, type: string) => {
+    const before = (getAt(tree, path) as Tree | undefined)?.$value;
+    if (JSON.stringify(before) === JSON.stringify(value)) return;
+    setTokenValue(tree, path, value);
+    const show = (v: unknown) => toCss(type, v) ?? JSON.stringify(v);
+    changes.push(`${before === undefined ? "+" : "~"} ${path.join(".")}: ${before === undefined ? "" : `${show(before)} → `}${show(value)}`);
   };
 
   for (const mode of ["light", "dark"] as const) {
-    for (const token of modes[mode] ?? []) {
-      const { name, type, value } = token;
+    for (const { name, type, value } of modes[mode] ?? []) {
       if (name === "radius" || name === "border-radius") {
-        const v = dimension(value);
-        if (v) set(["radius"], v);
+        set(["radius"], toCss("dimension", value) ?? value, "dimension");
         continue;
       }
-      if (type === "fontFamily" || /^font-(sans|heading|mono)$/.test(name)) {
-        const key = name.replace(/^font(-family)?-/, "");
-        const v = fontFamily(value);
-        if (v && ["sans", "heading", "mono"].includes(key)) set(["typography", key], v);
+      if (type === "fontFamily" || /^font-(family-)?(sans|heading|mono)$/.test(name)) {
+        const role = name.replace(/^font-(family-)?/, "");
+        if (["sans", "heading", "mono"].includes(role)) set(["font", role], value, "fontFamily");
         else skipped.push(`${mode}.${name} (unknown font role)`);
         continue;
       }
@@ -152,26 +134,24 @@ export async function importTokens(argv: string[]) {
         continue;
       }
       if (theme !== "default" && !knownColors.has(name)) {
-        skipped.push(`${mode}.${name} (not in the default DESIGN.md — add it there first)`);
+        skipped.push(`${mode}.${name} (not in the default design-tokens.json — add it there first)`);
         continue;
       }
-      set(["colors", mode, name], toOklchString(color));
+      set(["color", mode, name], toOklchString(color), "color");
     }
   }
 
   console.log(changes.length ? changes.join("\n") : "No token values changed.");
   if (skipped.length) console.warn(`⚠ skipped ${skipped.length}:\n${skipped.map((s) => `  • ${s}`).join("\n")}`);
-
   if (values["dry-run"] || changes.length === 0) {
     if (values["dry-run"]) console.log("(dry run — nothing written)");
     return;
   }
 
-  const original = text;
-  await writeFile(target, `---\n${doc.toString({ lineWidth: 0 }).trimEnd()}\n---\n${text.slice(end)}`);
+  await writeFile(target, formatJson(tree));
   try {
     await loadThemes();
-    console.log(`✔ ${label} updated (${changes.length} change(s)). Bump meta.version and run pnpm tokens:build.`);
+    console.log(`✔ ${label} updated (${changes.length} change(s)). Bump meta.version, then run pnpm tokens:build.`);
   } catch (error) {
     await writeFile(target, original);
     throw new DesignError(`Import rolled back — the result would be invalid:\n${(error as Error).message}`);

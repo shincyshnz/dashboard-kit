@@ -16,10 +16,11 @@ See [ADR 0001](./adr/0001-monorepo-plus-registry.md) for why.
 ## How a design change flows
 
 ```
-DESIGN.md                       themes/<name>/DESIGN.md (overrides only)
+design-tokens.json (DTCG)       themes/<name>/design-tokens.json (overrides only)
    │                                 │
-   ▼  load.ts / parse.ts             ▼  deep-merged onto the default
-validate (zod) ─────────────────► validate (zod) + no new token names
+   ▼  parse.ts                       ▼  deep-merged onto the default tree
+resolve {aliases} → convert.ts (DTCG → design object) → validate (zod)
+   │                                 │  + no new token names
    │                                 │
    ▼  contrast.ts                    ▼
 WCAG check, light + dark, every theme (fails the build on error)
@@ -32,6 +33,7 @@ dist/theme.css
    :root[data-theme="grove"]       { …every value for Grove… }
    :root[data-theme="grove"].dark  { … }
 dist/base.css · dist/themes/<name>.css · dist/tokens.json
+   DESIGN.md token tables (tokens:docs) · schema/*.schema.json (tokens:schema)
    │
    ▼  @import "@dashboard-kit/tokens/theme.css"  (apps/starter/src/styles/index.css)
 Tailwind v4 utilities: bg-primary, p-4 = calc(var(--dk-spacing) * 4), rounded-lg, font-heading…
@@ -52,7 +54,7 @@ Three details make changes propagate everywhere:
    `bg-blue-600`), so a token change has no component it can miss.
 
 In development, `turbo run dev` starts the token watcher and Vite together.
-Saving any DESIGN.md rewrites `theme.css`; Vite's Tailwind plugin sees the
+Saving any design-tokens.json rewrites `theme.css` (and DESIGN.md's generated tables); Vite's Tailwind plugin sees the
 changed import and hot-reloads the styles.
 
 ## Theme switching at runtime

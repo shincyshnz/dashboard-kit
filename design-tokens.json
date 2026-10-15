@@ -1,0 +1,391 @@
+{
+  "$schema": "./packages/tokens/schema/design-tokens.schema.json",
+  "$description": "Default Dashboard Kit theme. Cool petrol-blue primary, amber highlight, quiet neutrals.",
+  "$extensions": {
+    "dev.dashboard-kit": {
+      "meta": {
+        "name": "Harbor",
+        "version": "1.1.0"
+      },
+      "checks": {
+        "contrast": {
+          "minimum": 4.5,
+          "mode": "error",
+          "pairs": []
+        }
+      }
+    }
+  },
+  "color": {
+    "$type": "color",
+    "$description": "Colour tokens. Names match shadcn/ui; light and dark must list the same names.",
+    "light": {
+      "background": {
+        "$value": "oklch(0.985 0.003 230)",
+        "$description": "Page background."
+      },
+      "foreground": {
+        "$value": "oklch(0.21 0.02 240)",
+        "$description": "Default text on background."
+      },
+      "card": {
+        "$value": "oklch(1 0 0)",
+        "$description": "Card surface."
+      },
+      "card-foreground": {
+        "$value": "oklch(0.21 0.02 240)",
+        "$description": "Text on cards."
+      },
+      "popover": {
+        "$value": "oklch(1 0 0)",
+        "$description": "Menus, popovers and dropdowns."
+      },
+      "popover-foreground": {
+        "$value": "oklch(0.21 0.02 240)",
+        "$description": "Text in popovers."
+      },
+      "primary": {
+        "$value": "oklch(0.45 0.09 225)",
+        "$description": "Main brand / action colour (primary buttons, links, active states)."
+      },
+      "primary-foreground": {
+        "$value": "oklch(0.98 0.005 225)",
+        "$description": "Text and icons on primary."
+      },
+      "secondary": {
+        "$value": "oklch(0.95 0.008 230)",
+        "$description": "Secondary buttons and quiet surfaces."
+      },
+      "secondary-foreground": {
+        "$value": "oklch(0.27 0.03 235)",
+        "$description": "Text on secondary."
+      },
+      "muted": {
+        "$value": "oklch(0.955 0.006 230)",
+        "$description": "Subdued surfaces (table headers, disabled fields)."
+      },
+      "muted-foreground": {
+        "$value": "oklch(0.52 0.02 235)",
+        "$description": "Secondary text: hints, captions, descriptions."
+      },
+      "accent": {
+        "$value": "oklch(0.94 0.02 210)",
+        "$description": "Hover and highlight surfaces."
+      },
+      "accent-foreground": {
+        "$value": "oklch(0.27 0.04 225)",
+        "$description": "Text on accent."
+      },
+      "destructive": {
+        "$value": "oklch(0.56 0.2 27)",
+        "$description": "Danger and delete actions, error states."
+      },
+      "destructive-foreground": {
+        "$value": "oklch(0.98 0.01 27)",
+        "$description": "Text on destructive."
+      },
+      "border": {
+        "$value": "oklch(0.9 0.008 230)",
+        "$description": "Dividers and component borders."
+      },
+      "input": {
+        "$value": "oklch(0.9 0.008 230)",
+        "$description": "Form field borders."
+      },
+      "ring": {
+        "$value": "oklch(0.55 0.09 225)",
+        "$description": "Focus rings."
+      },
+      "chart-1": {
+        "$value": "oklch(0.5 0.09 225)",
+        "$description": "Chart series 1."
+      },
+      "chart-2": {
+        "$value": "oklch(0.74 0.14 75)",
+        "$description": "Chart series 2."
+      },
+      "chart-3": {
+        "$value": "oklch(0.62 0.08 150)",
+        "$description": "Chart series 3."
+      },
+      "chart-4": {
+        "$value": "oklch(0.5 0.1 320)",
+        "$description": "Chart series 4."
+      },
+      "chart-5": {
+        "$value": "oklch(0.65 0.03 240)",
+        "$description": "Chart series 5."
+      },
+      "sidebar": {
+        "$value": "oklch(0.97 0.005 230)",
+        "$description": "Sidebar background."
+      },
+      "sidebar-foreground": {
+        "$value": "oklch(0.25 0.02 240)",
+        "$description": "Sidebar text."
+      },
+      "sidebar-primary": {
+        "$value": "oklch(0.45 0.09 225)",
+        "$description": "Sidebar brand mark and active highlight."
+      },
+      "sidebar-primary-foreground": {
+        "$value": "oklch(0.98 0.005 225)",
+        "$description": "Text on sidebar-primary."
+      },
+      "sidebar-accent": {
+        "$value": "oklch(0.93 0.012 225)",
+        "$description": "Sidebar item hover / active background."
+      },
+      "sidebar-accent-foreground": {
+        "$value": "oklch(0.25 0.03 230)",
+        "$description": "Text on sidebar-accent."
+      },
+      "sidebar-border": {
+        "$value": "oklch(0.9 0.008 230)",
+        "$description": "Sidebar dividers."
+      },
+      "sidebar-ring": {
+        "$value": "oklch(0.55 0.09 225)",
+        "$description": "Focus rings inside the sidebar."
+      },
+      "success": {
+        "$value": "oklch(0.52 0.12 155)",
+        "$description": "Kit extension: success states, positive deltas."
+      },
+      "success-foreground": {
+        "$value": "oklch(0.98 0.01 155)",
+        "$description": "Text on success."
+      },
+      "warning": {
+        "$value": "oklch(0.75 0.15 75)",
+        "$description": "Kit extension: warnings, pending states."
+      },
+      "warning-foreground": {
+        "$value": "oklch(0.25 0.05 60)",
+        "$description": "Text on warning."
+      }
+    },
+    "dark": {
+      "background": {
+        "$value": "oklch(0.18 0.015 240)"
+      },
+      "foreground": {
+        "$value": "oklch(0.95 0.005 230)"
+      },
+      "card": {
+        "$value": "oklch(0.22 0.017 240)"
+      },
+      "card-foreground": {
+        "$value": "oklch(0.95 0.005 230)"
+      },
+      "popover": {
+        "$value": "oklch(0.22 0.017 240)"
+      },
+      "popover-foreground": {
+        "$value": "oklch(0.95 0.005 230)"
+      },
+      "primary": {
+        "$value": "oklch(0.72 0.1 220)"
+      },
+      "primary-foreground": {
+        "$value": "oklch(0.18 0.03 230)"
+      },
+      "secondary": {
+        "$value": "oklch(0.27 0.018 240)"
+      },
+      "secondary-foreground": {
+        "$value": "oklch(0.93 0.006 230)"
+      },
+      "muted": {
+        "$value": "oklch(0.26 0.016 240)"
+      },
+      "muted-foreground": {
+        "$value": "oklch(0.7 0.015 235)"
+      },
+      "accent": {
+        "$value": "oklch(0.3 0.03 225)"
+      },
+      "accent-foreground": {
+        "$value": "oklch(0.95 0.005 230)"
+      },
+      "destructive": {
+        "$value": "oklch(0.66 0.19 25)"
+      },
+      "destructive-foreground": {
+        "$value": "oklch(0.18 0.02 25)"
+      },
+      "border": {
+        "$value": "oklch(1 0 0 / 10%)"
+      },
+      "input": {
+        "$value": "oklch(1 0 0 / 14%)"
+      },
+      "ring": {
+        "$value": "oklch(0.65 0.09 220)"
+      },
+      "chart-1": {
+        "$value": "oklch(0.72 0.1 220)"
+      },
+      "chart-2": {
+        "$value": "oklch(0.8 0.14 78)"
+      },
+      "chart-3": {
+        "$value": "oklch(0.72 0.09 150)"
+      },
+      "chart-4": {
+        "$value": "oklch(0.68 0.12 320)"
+      },
+      "chart-5": {
+        "$value": "oklch(0.7 0.02 240)"
+      },
+      "sidebar": {
+        "$value": "oklch(0.2 0.016 240)"
+      },
+      "sidebar-foreground": {
+        "$value": "oklch(0.93 0.006 230)"
+      },
+      "sidebar-primary": {
+        "$value": "oklch(0.72 0.1 220)"
+      },
+      "sidebar-primary-foreground": {
+        "$value": "oklch(0.18 0.03 230)"
+      },
+      "sidebar-accent": {
+        "$value": "oklch(0.27 0.02 235)"
+      },
+      "sidebar-accent-foreground": {
+        "$value": "oklch(0.95 0.005 230)"
+      },
+      "sidebar-border": {
+        "$value": "oklch(1 0 0 / 10%)"
+      },
+      "sidebar-ring": {
+        "$value": "oklch(0.65 0.09 220)"
+      },
+      "success": {
+        "$value": "oklch(0.68 0.13 155)"
+      },
+      "success-foreground": {
+        "$value": "oklch(0.18 0.03 155)"
+      },
+      "warning": {
+        "$value": "oklch(0.8 0.14 78)"
+      },
+      "warning-foreground": {
+        "$value": "oklch(0.2 0.04 60)"
+      }
+    }
+  },
+  "radius": {
+    "$type": "dimension",
+    "$description": "Base corner radius; rounded-sm/md/lg/xl derive from it.",
+    "$value": "0.625rem"
+  },
+  "spacing": {
+    "$type": "dimension",
+    "$description": "Spacing unit: every spacing utility is a multiple of it (p-4 = 4 × spacing).",
+    "$value": "0.25rem"
+  },
+  "font": {
+    "$type": "fontFamily",
+    "$description": "Font stacks. Load every family in the app's fonts.css.",
+    "sans": {
+      "$value": ["Public Sans Variable", "ui-sans-serif", "system-ui", "sans-serif"]
+    },
+    "heading": {
+      "$value": ["Public Sans Variable", "ui-sans-serif", "system-ui", "sans-serif"]
+    },
+    "mono": {
+      "$value": ["JetBrains Mono Variable", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"]
+    }
+  },
+  "fontSize": {
+    "$type": "dimension",
+    "$description": "Overrides Tailwind's text-* sizes.",
+    "xs": {
+      "$value": "0.75rem"
+    },
+    "sm": {
+      "$value": "0.875rem"
+    },
+    "base": {
+      "$value": "1rem"
+    },
+    "lg": {
+      "$value": "1.125rem"
+    },
+    "xl": {
+      "$value": "1.25rem"
+    },
+    "2xl": {
+      "$value": "1.5rem"
+    },
+    "3xl": {
+      "$value": "1.875rem"
+    }
+  },
+  "lineHeight": {
+    "$type": "dimension",
+    "$description": "Line height paired with the fontSize of the same name.",
+    "xs": {
+      "$value": "1rem"
+    },
+    "sm": {
+      "$value": "1.25rem"
+    },
+    "base": {
+      "$value": "1.5rem"
+    },
+    "lg": {
+      "$value": "1.75rem"
+    },
+    "xl": {
+      "$value": "1.75rem"
+    },
+    "2xl": {
+      "$value": "2rem"
+    },
+    "3xl": {
+      "$value": "2.25rem"
+    }
+  },
+  "shadow": {
+    "$type": "shadow",
+    "$description": "Elevation: shadow-xs … shadow-xl.",
+    "xs": {
+      "$value": "0 1px 2px 0 oklch(0.21 0.02 240 / 0.05)"
+    },
+    "sm": {
+      "$value": "0 1px 3px 0 oklch(0.21 0.02 240 / 0.08), 0 1px 2px -1px oklch(0.21 0.02 240 / 0.08)"
+    },
+    "md": {
+      "$value": "0 4px 10px -2px oklch(0.21 0.02 240 / 0.10), 0 2px 4px -2px oklch(0.21 0.02 240 / 0.06)"
+    },
+    "lg": {
+      "$value": "0 12px 24px -6px oklch(0.21 0.02 240 / 0.14), 0 4px 8px -4px oklch(0.21 0.02 240 / 0.08)"
+    }
+  },
+  "duration": {
+    "$type": "duration",
+    "$description": "Use as duration-(--duration-<name>).",
+    "fast": {
+      "$value": "120ms"
+    },
+    "normal": {
+      "$value": "200ms"
+    },
+    "slow": {
+      "$value": "320ms"
+    }
+  },
+  "easing": {
+    "$type": "cubicBezier",
+    "$description": "Become ease-<name> utilities.",
+    "standard": {
+      "$value": [0.2, 0, 0, 1]
+    },
+    "emphasized": {
+      "$value": [0.3, 0, 0, 1.3]
+    }
+  }
+}

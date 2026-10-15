@@ -1,3 +1,3 @@
-/* Load every font family referenced in DESIGN.md → typography. */
+/* Load every font family referenced in design-tokens.json → font.*. */
 @import "@fontsource-variable/public-sans";
 @import "@fontsource-variable/jetbrains-mono";

@@ -9,7 +9,7 @@ component registry, one starter app — reused across every project.
 | **Routing** | React Router 8 (data router, lazy routes) + nuqs for URL state |
 | **Build** | Vite 8, TypeScript 6 (strict), pnpm workspaces, Turborepo |
 | **State** | TanStack Query (server), Zustand (client), nuqs (URL); zod for all validation |
-| **Theming** | `DESIGN.md` (+ tenant themes) → `@dashboard-kit/tokens` → Tailwind/shadcn theme, switchable at runtime |
+| **Theming** | `design-tokens.json` (DTCG, + tenant themes) → `@dashboard-kit/tokens` → Tailwind/shadcn theme, switchable at runtime |
 | **Distribution** | Monorepo packages (locked logic) + custom shadcn registry (editable UI) |
 
 ## Quick start
@@ -25,24 +25,27 @@ Open the URL Vite prints. The **Design tokens** page previews the current theme.
 
 ## Change the theme
 
-Edit **[DESIGN.md](./DESIGN.md)** — nothing else. While `pnpm dev` runs, every
-component updates on save. Invalid values and low-contrast colour pairs are
+Edit **[design-tokens.json](./design-tokens.json)** — nothing else. Your editor
+autocompletes token names from its schema. While `pnpm dev` runs, every
+component updates on save. **[DESIGN.md](./DESIGN.md)** explains the design and
+the rules, with token tables generated from the JSON. Invalid values and low-contrast colour pairs are
 reported in the terminal with the exact token name.
 
-Need a second brand or tenant? Add `themes/<name>/DESIGN.md` with only the
-values that differ, and switch with `<html data-theme="<name>">` — see
-[themes/grove](./themes/grove/DESIGN.md) for an example.
+Need a second brand or tenant? Add `themes/<name>/design-tokens.json` with only
+the values that differ, and switch with `<html data-theme="<name>">` — see
+[themes/grove](./themes/grove/design-tokens.json) for an example.
 
 ## Repository map
 
 ```
 dashboard-kit/
-├── DESIGN.md            ← the default theme (single source of truth)
-├── themes/<name>/       ← tenant themes (overrides only)
+├── design-tokens.json   ← the default theme's values (DTCG; single source of truth)
+├── DESIGN.md            ← design guide + rules + generated token tables
+├── themes/<name>/       ← tenant themes: design-tokens.json with overrides only
 ├── apps/starter/        ← template app new projects start from
 ├── apps/storybook/      ← component catalogue with theme + mode toolbar
 ├── packages/
-│   ├── tokens/          ← DESIGN.md → theme.css + tokens.json; import / diff CLI
+│   ├── tokens/          ← design-tokens.json → theme.css + tokens.json; docs / schema / import / diff CLI
 │   ├── ui/              ← shadcn registry source (copy-in components)
 │   ├── config/          ← shared tsconfig + ESLint (incl. structure rules)
 │   ├── auth/            ← planned, Phase 3
@@ -59,8 +62,10 @@ dashboard-kit/
 | `pnpm typecheck` | `tsc` in every package |
 | `pnpm lint` | ESLint, including folder-structure rules |
 | `pnpm test` | Unit tests (tokens compiler today) |
-| `pnpm tokens:build` | Regenerate themes from DESIGN.md files once |
-| `pnpm tokens:import --file x.json` | Import Figma / Tokens Studio variables into DESIGN.md |
+| `pnpm tokens:build` | Regenerate themes from the design-tokens.json files once |
+| `pnpm tokens:docs` | Regenerate the token tables in DESIGN.md |
+| `pnpm tokens:schema` | Regenerate the JSON Schemas used for editor autocomplete |
+| `pnpm tokens:import --file x.json` | Import Figma / Tokens Studio variables into design-tokens.json |
 | `pnpm tokens:diff` | Show token changes vs git and check the version bump |
 | `pnpm docs:check` | Verify READMEs, ADRs, phase reports, changelog and links |
 | `pnpm registry:check` | Verify registry.json matches the component source |
@@ -89,4 +94,3 @@ Folder-specific rules live in nested `AGENTS.md` files, e.g.
 | [docs/REGISTRY.md](./docs/REGISTRY.md) | You add or consume a component |
 | [docs/CONVENTIONS.md](./docs/CONVENTIONS.md) | You write code or open a PR |
 | [docs/adr/](./docs/adr/README.md) | You want to know *why* a decision was made |
-# dashboard-kit

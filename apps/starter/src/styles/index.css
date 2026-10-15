@@ -1,6 +1,6 @@
 /*
  * App stylesheet. Theme values are NOT defined here — they come from
- * DESIGN.md via @dashboard-kit/tokens. Edit DESIGN.md to re-theme.
+ * design-tokens.json via @dashboard-kit/tokens. Edit design-tokens.json to re-theme.
  */
 @import "tailwindcss";
 @import "tw-animate-css";

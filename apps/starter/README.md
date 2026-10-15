@@ -12,7 +12,7 @@ pnpm dev          # from the repo root: token watcher + this app
 1. `src/config/app.config.ts` — name and description
 2. `.env.local` (copy `.env.example`) — `VITE_APP_NAME`, `VITE_API_BASE_URL`
 3. `src/config/navigation.ts` — sidebar menu
-4. `DESIGN.md` — colours, radius, fonts, density, type scale, shadows, motion
+4. `design-tokens.json` — colours, radius, fonts, spacing, type scale, shadows, motion (see [DESIGN.md](../../DESIGN.md))
 5. Delete the example features you don't need (`features/dashboard`, `features/design`)
 
 ## Pages
