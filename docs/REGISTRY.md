@@ -87,7 +87,14 @@ This flow was verified end to end against a fresh Vite project in Phase 2, Step 
 | `ring-ring/50`, `bg-destructive/90` | any hex, rgb or oklch value in a class |
 
 Layout utilities (`flex`, `gap-4`, `px-6`, `size-9`) are fine — they follow
-`density.spacing` automatically. Phase 2 Step 3 adds a lint rule for these.
+`density.spacing` automatically.
+
+`pnpm lint` enforces this table with the `dashboard-kit/no-raw-design-values`
+rule (from `@dashboard-kit/config/eslint/token-audit`). It reports Tailwind
+palette classes (including `black` and `white`) and arbitrary colour, radius,
+shadow and font values, with or without variants such as `hover:` or `dark:`.
+If a component needs a colour the theme doesn't have, add a token to
+`design-tokens.json` instead of working around the rule.
 
 ## Testing the registry locally
 

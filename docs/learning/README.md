@@ -10,3 +10,4 @@ reference docs (`docs/*.md`) say what to do; these notes say why it works.
 | 2 | 2 — Storybook from scratch | [phase-2-step-2-storybook.md](./phase-2-step-2-storybook.md) |
 | — | Working with AI agents: AGENTS.md | [agents-md.md](./agents-md.md) |
 | 2 | 2b — Moving tokens from YAML to DTCG JSON | [dtcg-json-tokens.md](./dtcg-json-tokens.md) |
+| 2 | 3 — A lint rule that guards the tokens | [phase-2-step-3-token-audit.md](./phase-2-step-3-token-audit.md) |
