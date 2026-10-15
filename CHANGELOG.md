@@ -1,5 +1,12 @@
 # Changelog
 
+## @dashboard-kit/config 0.2.0 — Phase 2, Step 3 (token audit lint rule)
+
+- New ESLint rule `dashboard-kit/no-raw-design-values` (`@dashboard-kit/config/eslint/token-audit`): rejects Tailwind palette classes (incl. `black`/`white`) and arbitrary colour, radius, shadow and font values, through any variant
+- `packages/ui` now has `eslint.config.js` and a `lint` script, so `pnpm lint` audits every registry component
+- RuleTester suite under Vitest (`pnpm --filter @dashboard-kit/config test`)
+- `docs/REGISTRY.md` styling rules now point to the rule; learning note `docs/learning/phase-2-step-3-token-audit.md`
+
 ## Unreleased — decisions and documentation process
 
 - Decisions recorded: React + Vite over Next.js (ADR 0006), TanStack Query + Zustand (ADR 0007), zod for all validation (ADR 0008)

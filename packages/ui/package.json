@@ -8,7 +8,8 @@
     "registry:check": "node scripts/check-registry.mjs",
     "registry:build": "pnpm registry:check && shadcn build --output ./public/r",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf public/r .turbo"
+    "clean": "rm -rf public/r .turbo",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.4.0",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@dashboard-kit/config": "workspace:*",
     "@types/react": "^19.3.0",
+    "eslint": "^10.12.0",
     "react": "^19.3.0",
     "shadcn": "^4.20.0",
     "typescript": "~6.0.3",
