@@ -147,6 +147,36 @@ In any test project's `components.json`:
 npx shadcn add @dashboard-kit/button
 ```
 
+## Publishing to GitHub Pages
+
+`.github/workflows/pages.yml` publishes one site on every push to `main` (and
+on demand from the Actions tab), as decided in
+[ADR 0010](./adr/0010-github-pages-hosting.md):
+
+| Path | Content |
+|---|---|
+| `/` | Storybook |
+| `/r/registry.json` | Registry index |
+| `/r/<item>.json` | One file per registry item |
+
+The workflow installs with the locked dependencies, runs `pnpm typecheck`,
+`pnpm lint`, `pnpm test` and `pnpm docs:check`, then `pnpm pages:build`
+(registry build with `registry:check`, Storybook build, assembly into
+`site/`), and deploys `site/` with GitHub's Pages actions. A failed check
+means nothing is published; the previous deploy stays live.
+
+**One-time setup:** in the repository, open Settings → Pages and set
+Source to **GitHub Actions**. The site URL is
+`https://<owner>.github.io/<repo>/`.
+
+Preview the exact site locally, under the same sub-path Pages uses:
+
+```bash
+pnpm pages:build
+mkdir -p /tmp/pages && ln -sfn "$PWD/site" /tmp/pages/dashboard-kit
+python3 -m http.server 4410 -d /tmp/pages   # open http://localhost:4410/dashboard-kit/
+```
+
 ## Using it in a project
 
 ```json

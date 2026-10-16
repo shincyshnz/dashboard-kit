@@ -23,6 +23,7 @@
     "registry:sync": "pnpm --filter @dashboard-kit/ui registry:sync",
     "storybook": "pnpm --filter @dashboard-kit/storybook dev",
     "storybook:build": "pnpm --filter @dashboard-kit/storybook build",
+    "pages:build": "pnpm registry:build && turbo run build --filter=@dashboard-kit/storybook && node scripts/build-pages.mjs",
     "stories:check": "pnpm --filter @dashboard-kit/storybook stories:check",
     "tokens:docs": "pnpm --filter @dashboard-kit/tokens tokens-docs",
     "tokens:schema": "pnpm --filter @dashboard-kit/tokens tokens-schema"

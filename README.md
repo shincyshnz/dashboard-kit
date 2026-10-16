@@ -74,6 +74,7 @@ dashboard-kit/
 | `pnpm storybook` | Component catalogue on http://localhost:6006 |
 | `pnpm stories:check` | Enforce the story rules (also part of `pnpm lint`) |
 | `pnpm storybook:build` | Static Storybook in `apps/storybook/storybook-static` |
+| `pnpm pages:build` | Build the GitHub Pages site (Storybook at `/`, registry at `/r/`) into `site/` |
 
 ## Using AI coding agents
 

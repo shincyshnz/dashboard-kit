@@ -2,9 +2,9 @@
 
 | | |
 |---|---|
-| **Status** | Phases 0–1 complete · Phase 2 🚧 in progress (Steps 1–5 and token migration done) |
+| **Status** | Phases 0–1 complete · Phase 2 🚧 in progress (Steps 1–6 and token migration done) |
 | **Owner** | Frontend team |
-| **Last updated** | 2026-10-15 |
+| **Last updated** | 2026-10-16 |
 
 ---
 
@@ -117,7 +117,7 @@ Built step by step, with a learning note per step in [docs/learning](./learning/
 | 3 | **Token audit lint rule:** `dashboard-kit/no-raw-design-values` in `@dashboard-kit/config` rejects palette classes (incl. black/white) and arbitrary colour, radius, shadow and font values; `packages/ui` now runs `pnpm lint`; RuleTester suite | ✅ |
 | 4 | **Primitives:** input, label, textarea, select, checkbox, switch, dialog, sheet, dropdown-menu, popover, tooltip, tabs, table, skeleton, separator, avatar, sonner, sidebar, breadcrumb, command — each registered with dependencies and a Storybook story | ✅ 20 accessible, token-styled registry components and stories |
 | 5 | **Starter sync:** `registry:sync` copies registry source into the starter; header theme picker becomes the registry Select | ✅ `pnpm registry:sync [name…]` copies items + registry deps and adds npm deps; `registry:check` fails on drift; header uses the registry Select (verified switching themes live) |
-| 6 | **Deploy:** GitHub Actions workflow builds registry + Storybook and publishes to GitHub Pages | ⏳ |
+| 6 | **Deploy:** GitHub Actions workflow builds registry + Storybook and publishes to GitHub Pages | ✅ `.github/workflows/pages.yml` (push to `main` + manual): verify → `pnpm pages:build` → deploy; site verified locally under a `/dashboard-kit/` sub-path. First live deploy needs Pages source set to GitHub Actions |
 | 7 | **Close-out:** consumer test from the Pages URL, phase report, version bumps | ⏳ |
 
 **Accepted when** a fresh Vite app can run `npx shadcn add @dashboard-kit/button` against the GitHub Pages URL and get a themed button, and every registry component has a story that renders in every theme.
