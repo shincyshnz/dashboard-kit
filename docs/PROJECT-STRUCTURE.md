@@ -45,9 +45,12 @@ dashboard-kit/
 │   ├── adr/                  architecture decision records (+ index, template)
 │   └── phases/               one report per completed phase (+ template)
 ├── scripts/
-│   └── check-docs.mjs        documentation checks (pnpm docs:check)
+│   ├── check-docs.mjs        documentation checks (pnpm docs:check)
+│   └── build-pages.mjs       assembles site/ for GitHub Pages (pnpm pages:build)
+├── site/                     generated GitHub Pages site — git-ignored
 ├── .github/
-│   └── pull_request_template.md
+│   ├── pull_request_template.md
+│   └── workflows/pages.yml   deploys Storybook + registry to GitHub Pages
 ├── AGENTS.md                 rules for AI agents (CLAUDE.md imports it)
 ├── CHANGELOG.md
 ├── package.json              root scripts only — no runtime deps

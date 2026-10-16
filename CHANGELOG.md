@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — Phase 2, Step 6 (GitHub Pages deploy)
+
+- New workflow `.github/workflows/pages.yml`: on push to `main` (or manual run) it verifies (`typecheck`, `lint`, `test`, `docs:check`), builds the site and deploys it to GitHub Pages (ADR 0010); actions pinned to exact release tags
+- New `pnpm pages:build` (`scripts/build-pages.mjs`): builds the registry and Storybook and assembles `site/` — Storybook at `/`, registry JSON at `/r/`
+- `site/` is git-ignored generated output (listed in `AGENTS.md` rule 2)
+- Docs: "Publishing to GitHub Pages" in `docs/REGISTRY.md`, project structure, README commands; learning note `docs/learning/phase-2-step-6-pages-deploy.md`
+
 ## @dashboard-kit/ui 0.4.0, @dashboard-kit/starter 0.2.0 — Phase 2, Step 5 (starter sync)
 
 - New `pnpm registry:sync [name…]` (`packages/ui/scripts/sync-registry.mjs`): copies registry items and their registry dependencies into `apps/starter`, maps files by type through `components.json` aliases, and adds missing npm dependencies with the registry's version range
